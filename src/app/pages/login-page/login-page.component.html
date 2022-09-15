@@ -2,8 +2,45 @@
   header="Log In to Dashboard Kit"
   content="Enter your email and password"
 >
-  <form>
-    <label for="login-email">Email</label>
-    <input type="email" id="login-email" />
+  <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSumbit()">
+    <div class="form-control">
+      <label class="form-control__label" for="login-email">Email</label>
+      <input
+        placeholder="Email address"
+        class="form-control__input"
+        [class.form-control__input__failed]="email?.touched && (email?.errors?.['email'] || email?.errors?.['required'])"
+        formControlName="email"
+        type="email"
+        id="login-email"
+      />
+      <div *ngIf="loginForm.invalid" class="form-control__error">
+        <div *ngIf="email?.touched && email?.errors?.['email']">
+          Incorrect email.
+        </div>
+        <div *ngIf="email?.touched && email?.errors?.['required']">
+          Email required.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <label class="form-control__label" for="form-control">Password</label>
+      <input
+        placeholder="Password"
+        class="form-control__input"
+        [class.form-control__input__failed]="password?.touched && password?.errors?.['required']"
+        formControlName="password"
+        type="password"
+        id="login-pass"
+      />
+      <div *ngIf="loginForm.invalid" class="form-control__error">
+        <div *ngIf="password?.touched && password?.errors?.['required']">
+          Password required.
+        </div>
+      </div>
+    </div>
+    <app-regular-button [disabled]="!loginForm.valid">
+      Login</app-regular-button
+    >
   </form>
 </app-modal-window>

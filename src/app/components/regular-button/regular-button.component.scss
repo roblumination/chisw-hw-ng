@@ -25,4 +25,9 @@
     transform: translateY(1px);
     // background-color: darken($accent, 5%);
   }
+
+  &:disabled {
+    background-color: #888;
+    box-shadow: none;
+  }
 }

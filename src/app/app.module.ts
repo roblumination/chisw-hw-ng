@@ -9,6 +9,8 @@ import { SignUpPageComponent } from './pages/sign-up-page/sign-up-page.component
 import { RestorePasswordPageComponent } from './pages/restore-password-page/restore-password-page.component';
 import { ForgotPasswordPageComponent } from './pages/forgot-password-page/forgot-password-page.component';
 import { RegularButtonComponent } from './components/regular-button/regular-button.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MainPageComponent } from './pages/main-page/main-page.component';
 
 @NgModule({
   declarations: [
@@ -18,13 +20,11 @@ import { RegularButtonComponent } from './components/regular-button/regular-butt
     SignUpPageComponent,
     RestorePasswordPageComponent,
     ForgotPasswordPageComponent,
-    RegularButtonComponent
+    RegularButtonComponent,
+    MainPageComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
