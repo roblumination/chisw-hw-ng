@@ -1,6 +1,10 @@
 @import "../../../colors.scss";
 @import "../../../mixins.scss";
 
+:host {
+  width: 100%;
+}
+
 .regular-button {
   transition: all 0.1s;
   background-color: $accent;
