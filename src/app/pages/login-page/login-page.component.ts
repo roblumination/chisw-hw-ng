@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class LoginPageComponent {
   mockUser = {
     email: 'test@gmail.com',
-    pass: '123456',
+    pass: 'ilovekebab',
   };
   passMode = true;
   @ViewChild('passwordField') passwordField!: ElementRef;

@@ -1,8 +1,14 @@
 <div class="navigation">
-  <button routerLink="/login">Login</button>
-  <button routerLink="/reset">Reset password</button>
-  <button routerLink="/signup">Sign Up</button>
-  <button routerLink="/forgot">Forgot password</button>
-  <button routerLink="/main">Final</button>
+  <div class="navigation__ad">
+    USER: <b>test@gmail.com</b> PASSWORD: <b>ilovekebab</b>
+  </div>
+  <div class="navigation__pages">
+    <div class="navigation__pages__label">PAGES</div>
+    <button routerLink="/login">Login</button>
+    <button routerLink="/reset">Reset password</button>
+    <button routerLink="/signup">Sign Up</button>
+    <button routerLink="/forgot">Forgot password</button>
+    <button routerLink="/main">Final</button>
+  </div>
 </div>
 <router-outlet></router-outlet>

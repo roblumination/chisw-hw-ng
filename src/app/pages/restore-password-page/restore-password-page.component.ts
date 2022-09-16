@@ -35,7 +35,7 @@ export class RestorePasswordPageComponent {
     if (pass1 === pass2) {
       this.router.navigate(['/login']);
     } else {
-      alert('Same passwords required!');
+      alert('Passwords must not differ!');
     }
   }
 
