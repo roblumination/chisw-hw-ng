@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -12,20 +12,25 @@ export class LoginPageComponent {
     email: 'test@gmail.com',
     pass: '123456',
   };
-
-  constructor(private router: Router) {}
-
+  passMode = true;
+  @ViewChild('passwordField') passwordField!: ElementRef;
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.email, Validators.required]),
     password: new FormControl('', [Validators.required]),
   });
 
+  constructor(private router: Router) {}
+
   get email() {
     return this.loginForm.get('email');
   }
-
   get password() {
     return this.loginForm.get('password');
+  }
+
+  togglePassmode() {
+    this.passMode = !this.passMode;
+    this.passwordField.nativeElement.type = this.passMode ? 'text' : 'password';
   }
 
   onSumbit() {

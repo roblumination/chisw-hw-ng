@@ -11,6 +11,7 @@
 
 .form-control {
   // background-color: #ff0;
+  position: relative;
   display: flex;
   flex-direction: column;
   min-width: 100%;
@@ -46,12 +47,40 @@
     }
   }
 
+  &__hide-button {
+    position: absolute;
+    cursor: pointer;
+    margin: 5px 10px;
+    bottom: 0px;
+    right: 0px;
+    border-radius: 50%;
+    border: none;
+    background-color: #0000;
+    width: 30px;
+    height: 30px;
+    background: url("/assets/img/hide.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+
+    &:hover {
+      background-color: #0001;
+    }
+
+    &:active {
+      background-color: #0002;
+    }
+    // background-color: #000;
+  }
+
   &__error {
     & * {
       color: #f00;
       font-size: 13px;
       margin-top: 5px;
     }
+    position: absolute;
+    bottom: 0px;
+    transform: translateY(18px);
     color: #f00;
     font-size: 13px;
     margin-top: 0px;

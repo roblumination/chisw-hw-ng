@@ -13,6 +13,7 @@
         type="email"
         id="login-email"
       />
+
       <div *ngIf="loginForm.invalid" class="form-control__error">
         <div *ngIf="email?.touched && email?.errors?.['email']">
           Incorrect email.
@@ -26,6 +27,7 @@
     <div class="form-control">
       <label class="form-control__label" for="form-control">Password</label>
       <input
+        #passwordField
         placeholder="Password"
         class="form-control__input"
         [class.form-control__input__failed]="password?.touched && password?.errors?.['required']"
@@ -38,15 +40,20 @@
           Password required.
         </div>
       </div>
+      <button
+        type="button"
+        (click)="togglePassmode()"
+        class="form-control__hide-button"
+      ></button>
     </div>
 
     <app-regular-button [disabled]="!loginForm.valid">
-      Login</app-regular-button
-    >
+      Login
+    </app-regular-button>
   </form>
 
   <div class="post-form">
-    <div>Don’t have an account? <a>Sign up</a></div>
-    <div>Forget Password? <a>Restore</a></div>
+    <div>Don’t have an account? <a routerLink="/signup">Sign up</a></div>
+    <div>Forget Password? <a routerLink="/forgot">Restore</a></div>
   </div>
 </app-modal-window>

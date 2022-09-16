@@ -11,7 +11,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    this.audio.src = '../../../assets/dawn.mp3';
+    this.audio.src = '/assets/audio/dawn.mp3';
     this.audio.load();
     this.audio.play();
   }
