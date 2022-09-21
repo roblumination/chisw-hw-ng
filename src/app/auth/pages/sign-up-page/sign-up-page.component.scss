@@ -1,5 +1,5 @@
-@import "/src/colors.scss";
-@import "/src/mixins.scss";
+@import "colors.scss";
+@import "mixins.scss";
 
 .register-form {
   @include flexColCenter(24px);

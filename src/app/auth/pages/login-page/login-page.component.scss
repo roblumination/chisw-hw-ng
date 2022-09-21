@@ -1,5 +1,5 @@
-@import "/src/colors.scss";
-@import "/src/mixins.scss";
+@import "colors.scss";
+@import "mixins.scss";
 
 .login-form {
   @include flexColCenter(24px);
