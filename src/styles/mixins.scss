@@ -4,3 +4,22 @@
   align-items: center;
   gap: $gap;
 }
+
+@mixin flexCenter($gap: 0px) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $gap;
+}
+
+@mixin modalBg($color: #0000) {
+  width: 100vh;
+  height: 100vh;
+  @include flexColCenter();
+}
+
+@mixin likeButton() {
+  user-select: none;
+  cursor: pointer;
+}

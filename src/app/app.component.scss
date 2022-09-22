@@ -3,17 +3,16 @@
 
 :host {
   display: block;
-  background-color: $main-bg;
   min-height: 100vh;
   margin: 0px;
   // padding: 0px;
   // width: 100vw;
   // height: 300px;
-  display: flex;
-  flex-direction: column;
+  // display: flex;
+  // flex-direction: column;
   // gap: 15px;
-  align-items: center;
-  justify-content: center;
+  // align-items: center;
+  // justify-content: center;
 }
 
 .navigation {

@@ -1,0 +1,33 @@
+@import "colors.scss";
+
+:host {
+  // margin-top: 30px;
+  // display: block;
+  display: flex;
+  align-items: center;
+  // background-color: #f003;
+}
+
+.title {
+  flex-grow: 1;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  &__ico {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid $grayscale-bg;
+    outline: 2px solid $grayscale-divider;
+  }
+}

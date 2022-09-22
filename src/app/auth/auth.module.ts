@@ -8,6 +8,7 @@ import { RegularButtonComponent } from '../shared/components/regular-button/regu
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthRoutingModule } from './auth-routing.module';
+import { AuthComponent } from './auth.component';
 
 @NgModule({
   declarations: [
@@ -16,14 +17,8 @@ import { AuthRoutingModule } from './auth-routing.module';
     RestorePasswordPageComponent,
     ForgotPasswordPageComponent,
     RegularButtonComponent,
+    AuthComponent,
   ],
   imports: [CommonModule, SharedModule, ReactiveFormsModule, AuthRoutingModule],
-  // exports: [
-  //   LoginPageComponent,
-  //   SignUpPageComponent,
-  //   RestorePasswordPageComponent,
-  //   ForgotPasswordPageComponent,
-  //   RegularButtonComponent,
-  // ],
 })
 export class AuthModule {}

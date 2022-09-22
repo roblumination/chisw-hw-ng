@@ -1,6 +1,32 @@
+@import "colors.scss";
+
 .not-found-text {
   font-size: 32px;
-  color: #fff;
+  color: lighten($main-bg, 20%);
   font-weight: bold;
-  text-shadow: 0 3px 5px #0003;
+  background-color: #0000;
+
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  animation: not-found linear 5s;
+}
+
+.num {
+  font-size: 128px;
+  line-height: 128px;
+  margin: 0px;
+}
+
+@keyframes not-found {
+  0% {
+    color: #0000;
+  }
+  100% {
+    color: lighten($main-bg, 20%);
+    // text-shadow: inset 0 3px 5px lighten($main-bg, 20%);
+  }
 }

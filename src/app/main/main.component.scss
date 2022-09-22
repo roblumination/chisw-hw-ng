@@ -1,0 +1,12 @@
+@import "colors.scss";
+
+:host {
+  display: flex;
+}
+
+.main {
+  flex-grow: 1;
+  height: 100vh;
+  background-color: $grayscale-bg;
+  padding: 30px;
+}

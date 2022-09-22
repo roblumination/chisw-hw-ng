@@ -1,0 +1,9 @@
+@import "mixins.scss";
+
+:host {
+  display: block;
+  // width: ;
+  min-height: 100vh;
+
+  @include flexCenter();
+}
