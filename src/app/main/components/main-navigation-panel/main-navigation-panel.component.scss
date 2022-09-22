@@ -4,8 +4,13 @@
 $tab-heigh: 56px;
 
 :host {
+  // position: absolute;
+  position: fixed;
+  top: 0px;
   min-width: 255px;
   color: $light-blue;
+  // height: 100%;
+  // min-height: 100vh;
 
   & * {
     transition: all 0.2s;
@@ -76,6 +81,11 @@ $tab-heigh: 56px;
   background-color: $grayscale-divider;
   margin: 16px 0;
   opacity: 0.06;
+}
+
+.wrapper {
+  position: sticky;
+  top: 0px;
 }
 
 @keyframes lineScale {

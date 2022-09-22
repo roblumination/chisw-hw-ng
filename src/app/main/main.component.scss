@@ -1,12 +1,24 @@
 @import "colors.scss";
 
-:host {
-  display: flex;
-}
+// :host {
+//   display: flex;
+// }
 
 .main {
-  flex-grow: 1;
+  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: auto;
+  // flex-grow: 1;
+  position: relative;
+  z-index: 1000;
+  margin-left: 255px;
+  min-width: calc(100vh - 255px);
   height: 100vh;
   background-color: $grayscale-bg;
   padding: 30px;
+
+  .header {
+    position: sticky;
+    left: 0px;
+  }
 }
