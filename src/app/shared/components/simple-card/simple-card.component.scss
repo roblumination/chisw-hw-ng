@@ -1,0 +1,8 @@
+@import "colors.scss";
+
+:host {
+  display: block;
+  background-color: $white;
+  border: 1px solid $grayscale-divider;
+  border-radius: 8px;
+}

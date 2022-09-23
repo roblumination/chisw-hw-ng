@@ -8,9 +8,11 @@ import { NavigationTabsNames } from './NavigationTabsNames.enum';
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent {
+  title: NavigationTabsNames = NavigationTabsNames.Overview;
   constructor(private router: Router) {}
 
   goToPage(val: NavigationTabsNames) {
     this.router.navigate(['main/' + val.toLocaleLowerCase()]);
+    this.title = val;
   }
 }

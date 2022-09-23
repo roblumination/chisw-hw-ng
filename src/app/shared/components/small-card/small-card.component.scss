@@ -1,0 +1,53 @@
+@import "colors.scss";
+@import "mixins.scss";
+@import "variables.scss";
+
+.card {
+  @include flexCenter(12px);
+  @include likeButton();
+  padding: 24px 0;
+  transition: all 0.2s;
+
+  & > * {
+    font-weight: 700;
+    transition: all 0.2s;
+  }
+
+  .title {
+    color: $grayscale-gray;
+    font-size: 19px;
+    letter-spacing: 0.4px;
+  }
+
+  .number {
+    color: $grayscale-black;
+    font-size: 40px;
+  }
+
+  &:hover {
+    border: 1px solid $accent;
+    outline: 2px solid $light-blue;
+
+    .title,
+    .number {
+      color: $accent;
+    }
+  }
+}
+
+@media screen and (max-width: $screen-size-tablet) {
+  .card {
+    padding: 16px 8px;
+    gap: 0px;
+
+    .title {
+      font-size: 16px;
+      // letter-spacing: 0.4px;
+    }
+
+    .number {
+      color: $grayscale-black;
+      font-size: 30px;
+    }
+  }
+}

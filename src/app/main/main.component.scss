@@ -1,24 +1,27 @@
 @import "colors.scss";
+@import "variables.scss";
 
-// :host {
-//   display: flex;
-// }
+:host {
+  display: flex;
+}
 
 .main {
-  overflow: hidden;
-  overflow-x: auto;
-  overflow-y: auto;
-  // flex-grow: 1;
-  position: relative;
-  z-index: 1000;
-  margin-left: 255px;
-  min-width: calc(100vh - 255px);
+  flex-grow: 1;
+  // min-width: calc(100vh - 255px);
   height: 100vh;
   background-color: $grayscale-bg;
   padding: 30px;
+  transition: all 0.5s;
 
   .header {
     position: sticky;
     left: 0px;
+    margin-bottom: 54px;
+  }
+}
+
+@media screen and (max-width: $screen-size-medium) {
+  .main {
+    padding: 15px;
   }
 }

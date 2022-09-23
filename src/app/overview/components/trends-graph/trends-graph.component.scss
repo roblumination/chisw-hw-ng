@@ -1,0 +1,40 @@
+@import "variables.scss";
+@import "colors.scss";
+
+:host {
+  display: block;
+}
+
+.graph {
+  padding: 32px;
+  flex-grow: 1;
+  &__wrapper {
+    display: flex;
+  }
+
+  &__data {
+    width: 342px;
+    border-left: 1px solid $grayscale-divider;
+  }
+}
+
+@media screen and (max-width: $screen-size-large) {
+  .graph {
+    &__data {
+      width: 240px;
+    }
+  }
+}
+
+@media screen and (max-width: $screen-size-tablet) {
+  .graph {
+    &__wrapper {
+      flex-direction: column;
+    }
+    &__data {
+      width: 100%;
+      border: none;
+      border-top: 1px solid $grayscale-divider;
+    }
+  }
+}

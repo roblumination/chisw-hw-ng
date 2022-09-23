@@ -1,20 +1,21 @@
 @import "colors.scss";
 @import "mixins.scss";
+@import "variables.scss";
 
 $tab-heigh: 56px;
+$tab-heigh-small: 40px;
+
+$navbar-width: 255px;
+$navbar-width-small: 180px;
 
 :host {
-  // position: absolute;
-  position: fixed;
-  top: 0px;
-  min-width: 255px;
+  min-width: $navbar-width;
   color: $light-blue;
-  // height: 100%;
-  // min-height: 100vh;
 
   & * {
     transition: all 0.2s;
   }
+  transition: all 0.4s;
 }
 
 .navigation {
@@ -30,6 +31,12 @@ $tab-heigh: 56px;
   font-size: 19px;
   font-weight: 700;
   color: $grayscale-gray2;
+
+  &__img {
+    transition: all 0.3s;
+    width: 48px;
+    height: 48px;
+  }
 }
 
 .tab {
@@ -106,5 +113,33 @@ $tab-heigh: 56px;
   }
   100% {
     opacity: 1;
+  }
+}
+
+@media screen and (max-width: $screen-size-medium) {
+  :host {
+    min-width: $navbar-width-small;
+  }
+
+  .logo {
+    height: 72px;
+    font-size: 16px;
+    &__img {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .tab {
+    padding-left: 24px;
+    gap: 16px;
+
+    &:hover {
+      padding-left: 26px;
+    }
+
+    &:active {
+      padding-left: 28px;
+    }
   }
 }
