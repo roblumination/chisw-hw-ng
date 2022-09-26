@@ -1,9 +1,7 @@
 @import "colors.scss";
 @import "mixins.scss";
 @import "variables.scss";
-
-$tab-heigh: 56px;
-$tab-heigh-small: 40px;
+@import "./tab-item.scss";
 
 $navbar-width: 255px;
 $navbar-width-small: 180px;
@@ -36,49 +34,6 @@ $navbar-width-small: 180px;
     transition: all 0.3s;
     width: 48px;
     height: 48px;
-  }
-}
-
-.tab {
-  position: relative;
-  @include likeButton();
-
-  display: flex;
-  align-items: center;
-  height: $tab-heigh;
-  padding-left: 32px;
-  gap: 24px;
-
-  .ico {
-    background-color: rgba($grayscale-gray, 0.4);
-    width: 16px;
-    height: 16px;
-  }
-
-  &:hover {
-    padding-left: 34px;
-    background-color: rgba($grayscale-gray, 0.16);
-  }
-
-  &:active {
-    padding-left: 36px;
-    background-color: rgba($grayscale-gray, 0.24);
-  }
-
-  &_active {
-    background-color: rgba($grayscale-gray, 0.08);
-    .ico {
-      background-color: $light-blue;
-    }
-    &::before {
-      animation: lineScale 0.3s, lineOpacity ease-out 0.8s;
-      position: absolute;
-      left: 0px;
-      content: "";
-      height: $tab-heigh;
-      width: 3px;
-      background-color: $light-blue;
-    }
   }
 }
 
@@ -124,22 +79,10 @@ $navbar-width-small: 180px;
   .logo {
     height: 72px;
     font-size: 16px;
+    gap: 6px;
     &__img {
       width: 24px;
       height: 24px;
-    }
-  }
-
-  .tab {
-    padding-left: 24px;
-    gap: 16px;
-
-    &:hover {
-      padding-left: 26px;
-    }
-
-    &:active {
-      padding-left: 28px;
     }
   }
 }

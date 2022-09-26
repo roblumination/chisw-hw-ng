@@ -8,15 +8,16 @@
 .main {
   flex-grow: 1;
   // min-width: calc(100vh - 255px);
-  height: 100vh;
+  min-height: 100vh;
   background-color: $grayscale-bg;
   padding: 30px;
   transition: all 0.5s;
 
   .header {
-    position: sticky;
-    left: 0px;
+    // position: sticky;
+    top: 15px;
     margin-bottom: 54px;
+    // background-color: rgba($grayscale-bg, 0.5);
   }
 }
 

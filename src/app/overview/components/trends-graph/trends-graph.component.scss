@@ -1,5 +1,6 @@
 @import "variables.scss";
 @import "colors.scss";
+@import "mixins.scss";
 
 :host {
   display: block;
@@ -13,8 +14,30 @@
   }
 
   &__data {
+    padding: 8px 0;
     width: 342px;
     border-left: 1px solid $grayscale-divider;
+    transition: all 0.2s;
+
+    &__section {
+      @include flexCenter(6px);
+      padding: 24px;
+      border-bottom: 1px solid $grayscale-divider;
+
+      &:last-child {
+        border: none;
+      }
+      .label {
+        font-weight: 600;
+        text-align: center;
+        color: $grayscale-gray;
+        letter-spacing: 0.3px;
+      }
+      .value {
+        font-weight: 700;
+        font-size: 24px;
+      }
+    }
   }
 }
 
@@ -22,6 +45,26 @@
   .graph {
     &__data {
       width: 240px;
+      padding: 4px 0;
+
+      &__section {
+        padding: 12px;
+        border-bottom: 1px solid $grayscale-divider;
+
+        &:last-child {
+          border: none;
+        }
+        .label {
+          font-weight: 600;
+          text-align: center;
+          color: $grayscale-gray;
+          letter-spacing: 0.3px;
+        }
+        .value {
+          font-weight: 700;
+          font-size: 24px;
+        }
+      }
     }
   }
 }
