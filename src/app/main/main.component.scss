@@ -12,6 +12,8 @@
   background-color: $grayscale-bg;
   padding: 30px;
   transition: all 0.5s;
+  display: flex;
+  flex-direction: column;
 
   .header {
     // position: sticky;

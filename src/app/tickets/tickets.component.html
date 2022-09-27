@@ -1,1 +1,66 @@
-<p>tickets works!</p>
+<app-simple-card class="tickets">
+  <div class="table-widgets">
+    <button class="sort-button">
+      <div class="button-ico"></div>
+      Sort
+    </button>
+    <button class="filter-button">
+      <div class="button-ico"></div>
+      Filter
+    </button>
+    <button class="add-button">+ Add contact</button>
+  </div>
+  <table mat-table [dataSource]="ticketsDataSource">
+    <!-- --- TICKET DETAILS --- -->
+    <ng-container matColumnDef="ticketDetails">
+      <mat-header-cell class="table-column-big" *matHeaderCellDef>
+        Ticket details
+      </mat-header-cell>
+      <mat-cell *matCellDef="let ticket">
+        <div class="photo-ceil">
+          <img [src]="ticket.photoUrl" class="table-row-img" />
+          <div>
+            <div class="table-ceil-label">{{ ticket.ticketName }}</div>
+            <div class="table-ceil-text">Some date</div>
+          </div>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <!-- --- CUSTOMER NAME --- -->
+    <ng-container matColumnDef="customerName">
+      <mat-header-cell *matHeaderCellDef>Customer name</mat-header-cell>
+      <mat-cell *matCellDef="let ticket">{{ ticket.customerName }}</mat-cell>
+    </ng-container>
+
+    <!-- --- DATE --- -->
+    <ng-container matColumnDef="date">
+      <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
+      <mat-cell *matCellDef="let ticket">
+        <div>
+          <div class="table-ceil-label">Date</div>
+          <div class="table-ceil-text">Hours</div>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <!-- --- PRIORITY --- -->
+    <ng-container matColumnDef="priority">
+      <mat-header-cell *matHeaderCellDef>Priority</mat-header-cell>
+      <mat-cell *matCellDef="let ticket">
+        {{ ticket.priority }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- --- CONTEXT MENU --- -->
+    <ng-container matColumnDef="context">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let ticket; let i = index"
+        ><button>.</button></mat-cell
+      >
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </table>
+</app-simple-card>

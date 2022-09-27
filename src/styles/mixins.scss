@@ -23,3 +23,8 @@
   user-select: none;
   cursor: pointer;
 }
+
+@mixin emptyBututon() {
+  border: none;
+  background-color: #0000;
+}

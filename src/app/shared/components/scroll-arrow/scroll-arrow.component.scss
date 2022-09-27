@@ -1,0 +1,37 @@
+@import "colors.scss";
+@import "mixins.scss";
+
+:host {
+  display: block;
+  position: fixed;
+  bottom: 20px;
+  right: 10px;
+}
+
+.wrapper {
+  background-color: $main-bg;
+  color: $white;
+  border: 1px solid $grayscale-divider;
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  transition: all 0.2s; //, opacity 0.4s;
+  opacity: 1;
+  box-shadow: 0 5px 15px rgba($grayscale-dark, 0.1);
+  @include flexCenter();
+  @include likeButton();
+
+  &:hover {
+    background-color: lighten($main-bg, 20%);
+  }
+
+  &:active {
+    transform: translateY(3px);
+  }
+
+  &_hidden {
+    // background-color: #fff0;
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}

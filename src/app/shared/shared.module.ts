@@ -7,7 +7,10 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SmallCardComponent } from './components/small-card/small-card.component';
 import { SimpleCardComponent } from './components/simple-card/simple-card.component';
+import { ScrollArrowComponent } from './components/scroll-arrow/scroll-arrow.component';
 // import { RegularButtonComponent } from './components/regular-button/regular-button.component';
+
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -16,14 +19,16 @@ import { SimpleCardComponent } from './components/simple-card/simple-card.compon
     HeaderComponent,
     SmallCardComponent,
     SimpleCardComponent,
+    ScrollArrowComponent,
   ],
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, MatIconModule],
   exports: [
     ModalWindowComponent,
     ReactiveFormsModule,
     HeaderComponent,
     SmallCardComponent,
     SimpleCardComponent,
+    ScrollArrowComponent,
   ],
 })
 export class SharedModule {}
