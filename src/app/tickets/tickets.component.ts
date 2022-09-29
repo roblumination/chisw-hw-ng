@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { tick } from '@angular/core/testing';
 import { MatTableDataSource } from '@angular/material/table';
 import Ticket from './models/ticket.interface';
 import { TicketService } from './services/ticket.service';
@@ -20,15 +21,28 @@ export class TicketsComponent implements OnInit {
   ];
 
   constructor(private ticketsService: TicketService) {
-    this.tickets = ticketsService.getAll();
+    this.tickets = this.ticketsService.getAll();
     this.ticketsDataSource = new MatTableDataSource(this.tickets);
-    // console.log(this.tickets);
   }
 
-  ngOnInit(): void {
-    // console.log(this.ticketsService.getAll());
-    // console.log(this.ticketsService.getByPageNumber(0));
-    // console.log(this.ticketsService.getByPageNumber(1));
-    // console.log(this.ticketsService.getByPageNumber(2));
+  setFilterPhrase(filterPhrase: string) {
+    this.ticketsDataSource.filter = filterPhrase;
   }
+
+  setSort(sort: keyof Ticket) {
+    this.tickets.sort((a, b) => {
+      if (sort == 'customerName' || sort == 'ticketName') {
+        return a[sort].localeCompare(b[sort], 'en', { numeric: true });
+      }
+      if (a[sort] > b[sort]) return 1;
+      return -1;
+    });
+    this.updateTable();
+  }
+
+  updateTable() {
+    this.ticketsDataSource = new MatTableDataSource(this.tickets);
+  }
+
+  ngOnInit(): void {}
 }

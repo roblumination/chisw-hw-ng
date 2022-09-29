@@ -1,15 +1,9 @@
 <app-simple-card class="tickets">
-  <div class="table-widgets">
-    <button class="sort-button">
-      <div class="button-ico"></div>
-      Sort
-    </button>
-    <button class="filter-button">
-      <div class="button-ico"></div>
-      Filter
-    </button>
-    <button class="add-button">+ Add contact</button>
-  </div>
+  <!-- <div class="table-widgets"></div> -->
+  <app-table-widgets
+    (requestSetSortBy)="setSort($event)"
+    (requestSetFilterPhrase)="setFilterPhrase($event)"
+  ></app-table-widgets>
   <table mat-table [dataSource]="ticketsDataSource">
     <!-- --- TICKET DETAILS --- -->
     <ng-container matColumnDef="ticketDetails">
@@ -21,7 +15,9 @@
           <img [src]="ticket.photoUrl" class="table-row-img" />
           <div>
             <div class="table-ceil-label">{{ ticket.ticketName }}</div>
-            <div class="table-ceil-text">Some date</div>
+            <div class="table-ceil-text">
+              Updated {{ ticket.lastUpdated | daysAgo }}
+            </div>
           </div>
         </div>
       </mat-cell>
@@ -30,7 +26,14 @@
     <!-- --- CUSTOMER NAME --- -->
     <ng-container matColumnDef="customerName">
       <mat-header-cell *matHeaderCellDef>Customer name</mat-header-cell>
-      <mat-cell *matCellDef="let ticket">{{ ticket.customerName }}</mat-cell>
+      <mat-cell *matCellDef="let ticket">
+        <div>
+          <div class="table-ceil-label">{{ ticket.customerName }}</div>
+          <div class="table-ceil-text">
+            on {{ ticket.customerLastLogin | date: "dd.MM.yyyy" }}
+          </div>
+        </div>
+      </mat-cell>
     </ng-container>
 
     <!-- --- DATE --- -->
@@ -38,8 +41,12 @@
       <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
       <mat-cell *matCellDef="let ticket">
         <div>
-          <div class="table-ceil-label">Date</div>
-          <div class="table-ceil-text">Hours</div>
+          <div class="table-ceil-label">
+            {{ ticket.creationDate | date: "MMM dd.yyyy" }}
+          </div>
+          <div class="table-ceil-text">
+            {{ ticket.creationDate | date: "hh:mm aa" }}
+          </div>
         </div>
       </mat-cell>
     </ng-container>
@@ -48,19 +55,32 @@
     <ng-container matColumnDef="priority">
       <mat-header-cell *matHeaderCellDef>Priority</mat-header-cell>
       <mat-cell *matCellDef="let ticket">
-        {{ ticket.priority }}
+        <app-priority-chips [priority]="ticket.priority"></app-priority-chips>
       </mat-cell>
     </ng-container>
 
-    <!-- --- CONTEXT MENU --- -->
+    <!-- --- 3-DOT MENU BUTTON --- -->
     <ng-container matColumnDef="context">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
-      <mat-cell *matCellDef="let ticket; let i = index"
-        ><button>.</button></mat-cell
-      >
+      <mat-cell *matCellDef="let ticket; let i = index">
+        <button [mat-menu-trigger-for]="itemMenu">.</button>
+      </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+    <!-- --- 3-DOT MENU --- -->
+    <mat-menu #itemMenu="matMenu" class="mat-menu">
+      <button mat-menu-item>
+        <mat-icon>edit</mat-icon>
+        <span>Edit</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>delete</mat-icon>
+
+        <span>Delete</span>
+      </button>
+    </mat-menu>
   </table>
 </app-simple-card>

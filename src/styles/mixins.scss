@@ -28,3 +28,38 @@
   border: none;
   background-color: #0000;
 }
+
+@mixin matInputCustomStyle() {
+  ::ng-deep .mat-form-field {
+    font-size: 14px;
+    .mat-form-field-wrapper {
+      margin: 0px !important;
+      padding: 0px !important;
+    }
+    .mat-input-element {
+      font-family: Mulish;
+    }
+    .mat-form-field-label {
+    }
+
+    .mat-form-field-infix {
+      padding: 3px 0px;
+      height: 42px;
+    }
+    .mat-form-field-outline {
+      border: 1px solid #f0f1f7;
+      border-radius: 8px;
+      background-color: #fcfdfe;
+
+      &:hover {
+        color: #f00;
+      }
+    }
+    .mat-form-field-ripple {
+      background-color: slategray;
+    }
+    .mat-form-field-required-marker {
+      color: slategray;
+    }
+  }
+}

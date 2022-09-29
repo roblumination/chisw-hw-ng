@@ -1,0 +1,20 @@
+::ng-deep .mat-menu {
+  border: 1px solid $grayscale-divider;
+  box-shadow: 0 5px 15px rgba($grayscale-dark, 0.1);
+  padding: 0px;
+  // color: $accent;
+
+  // &.mat-menu-panel {
+  //   background-color: #f00;
+  // }
+
+  & > * > * {
+    padding: 0px;
+    // color: $grayscale-black;
+    color: $grayscale-black;
+  }
+
+  & .mat-icon {
+    color: $grayscale-dark;
+  }
+}

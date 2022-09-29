@@ -1,6 +1,7 @@
 import { TicketPriority } from './priority.enum';
 
 export default interface Ticket {
+  id: number;
   ticketName: string;
   customerName: string;
   photoUrl: string;

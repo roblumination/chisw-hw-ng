@@ -11,6 +11,7 @@ import { ScrollArrowComponent } from './components/scroll-arrow/scroll-arrow.com
 // import { RegularButtonComponent } from './components/regular-button/regular-button.component';
 
 import { MatIconModule } from '@angular/material/icon';
+import { DaysAgoPipe } from './pipes/days-ago.pipe';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
     SmallCardComponent,
     SimpleCardComponent,
     ScrollArrowComponent,
+    DaysAgoPipe,
   ],
   imports: [CommonModule, ReactiveFormsModule, MatIconModule],
   exports: [
@@ -29,6 +31,7 @@ import { MatIconModule } from '@angular/material/icon';
     SmallCardComponent,
     SimpleCardComponent,
     ScrollArrowComponent,
+    DaysAgoPipe,
   ],
 })
 export class SharedModule {}

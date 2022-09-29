@@ -68,6 +68,7 @@ export class TicketService {
   private generateTickets() {
     for (let i = 0; i < this.USER_AMOUNT; i++) {
       const result: Ticket = {
+        id: i,
         ticketName: `TEST test super number ${i + 1}`,
         customerName: this.USER_NAMES[this.getRandom(this.USER_NAMES.length)],
         photoUrl: this.getRandomProfileImgUrl(),

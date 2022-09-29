@@ -20,7 +20,7 @@ export class ScrollArrowComponent {
   constructor() {
     /*this.eventListener = */ document.addEventListener('scroll', (e) => {
       if (window.scrollY > 200) this.isHidden = false;
-      if (window.scrollY < 400) this.isHidden = true;
+      if (window.scrollY < 100) this.isHidden = true;
 
       this.button?.nativeElement.addEventListener('click', () => {
         window.scrollTo({
