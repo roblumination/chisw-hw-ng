@@ -14,9 +14,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { PriorityChipsComponent } from './components/priority-chips/priority-chips.component';
 import { TicketsFilterPipe } from './pipes/tickets-filter.pipe';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
-  declarations: [TicketsComponent, TableWidgetsComponent, PriorityChipsComponent, TicketsFilterPipe],
+  declarations: [
+    TicketsComponent,
+    TableWidgetsComponent,
+    PriorityChipsComponent,
+    TicketsFilterPipe,
+  ],
   imports: [
     CommonModule,
     SharedModule,
@@ -25,6 +31,7 @@ import { TicketsFilterPipe } from './pipes/tickets-filter.pipe';
     MatIconModule,
     MatInputModule,
     MatFormFieldModule,
+    MatButtonModule,
   ],
 })
 export class TicketsModule {}

@@ -1,0 +1,37 @@
+@import "mixins.scss";
+@import "colors.scss";
+
+.shadow {
+  position: fixed;
+  z-index: 4000;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background-color: rgba($main-bg, 0.5);
+  @include flexCenter();
+  transition: all 0.2s, background 0.7s;
+
+  perspective: 600px;
+
+  &_hidden {
+    opacity: 0;
+    pointer-events: none;
+    background-color: #0000;
+
+    .window {
+      transform: rotateX(20deg) translateY(-50px);
+      // transform: scale(2);
+      // filter: blur(16px);
+      opacity: 0;
+    }
+  }
+
+  .window {
+    transition: all 0.2s;
+    background-color: $white;
+    padding: 32px;
+    padding-bottom: 24px;
+    width: 380px;
+  }
+}

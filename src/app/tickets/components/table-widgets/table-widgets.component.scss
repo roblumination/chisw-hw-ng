@@ -13,55 +13,36 @@
   padding: 32px 25px;
   padding-bottom: 20px;
   margin-bottom: 10px;
-  gap: 20px;
+  gap: 0px;
   position: sticky;
   top: -18px;
   background: linear-gradient(#fff 80%, #fff0);
   border-radius: 8px;
 
   button {
-    // padding: 7px 20px;
-    border-radius: 4px;
-    @include emptyBututon();
-    @include likeButton();
-    color: $grayscale-dark;
     font-size: 14px;
     font-weight: 600;
-    display: flex;
-    gap: 8px;
-
-    &:hover {
-      // background-color: rgba($grayscale-dark, 10%);
-      .button-ico {
-        background-color: darken($grayscale-gray-light, 20%);
-      }
-    }
-
-    &:active {
-      color: $accent;
-      .button-ico {
-        background-color: $accent;
-      }
-    }
+    // display: flex;
+    color: $grayscale-dark;
+    // gap: 12px;
 
     .button-ico {
       width: 16px;
       height: 16px;
       background-color: $grayscale-gray-light;
+      margin-right: 15px;
+
+      &__wrapper {
+        display: inline-block;
+        margin-right: 6px;
+        width: 16px;
+        height: 20px;
+      }
     }
   }
 
   .add-button {
-    margin-left: auto;
     color: $accent;
-
-    &:hover {
-      text-decoration: underline;
-    }
-
-    &:active {
-      color: darken($accent, 20%);
-    }
   }
 
   .sort-button {
@@ -72,14 +53,21 @@
 
   .filter-button {
     transition: all 0.3s;
+
+    &__hidden {
+      opacity: 0;
+      transform: rotateY(-10deg) translateX(-30px);
+      pointer-events: none;
+    }
     .button-ico {
       mask-image: url("/assets/img/filter.svg");
     }
   }
 }
 
-.filter-formfield {
+.filter-input {
   width: 100%;
+  margin-right: 15px;
   &__button {
     background-color: #f00;
     color: #f00;
@@ -93,28 +81,10 @@
     transition: all 0.3s;
     margin-left: -80px;
 
-    & > button {
-      margin-top: 7px;
-    }
-
     &_hidden {
       opacity: 0;
       transform: rotateX(20deg) translateY(-20px);
       pointer-events: none;
     }
   }
-
-  // &__hidden {
-  //   // width: 0px;
-  //   opacity: 0;
-  //   transform: rotateX(20deg) translateY(-20px);
-  //   pointer-events: none;
-  // }
-}
-
-.filter-button__hidden {
-  // width: 0px;
-  opacity: 0;
-  transform: rotateX(30deg);
-  pointer-events: none;
 }

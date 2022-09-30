@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ModalWindowComponent } from './components/modal-window/modal-window.component';
+import { ModalLoginWindowComponent } from './components/modal-login-window/login-modal-window.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -12,26 +12,29 @@ import { ScrollArrowComponent } from './components/scroll-arrow/scroll-arrow.com
 
 import { MatIconModule } from '@angular/material/icon';
 import { DaysAgoPipe } from './pipes/days-ago.pipe';
+import { ModalWrapperComponent } from './components/modal-wrapper/modal-wrapper.component';
 
 @NgModule({
   declarations: [
-    ModalWindowComponent,
+    ModalLoginWindowComponent,
     NotFoundComponent,
     HeaderComponent,
     SmallCardComponent,
     SimpleCardComponent,
     ScrollArrowComponent,
     DaysAgoPipe,
+    ModalWrapperComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, MatIconModule],
   exports: [
-    ModalWindowComponent,
+    ModalLoginWindowComponent,
     ReactiveFormsModule,
     HeaderComponent,
     SmallCardComponent,
     SimpleCardComponent,
     ScrollArrowComponent,
     DaysAgoPipe,
+    ModalWrapperComponent,
   ],
 })
 export class SharedModule {}

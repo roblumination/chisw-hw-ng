@@ -1,4 +1,4 @@
-<app-modal-window header="Sign Up" content="Create a new account">
+<app-login-modal-window header="Sign Up" content="Create a new account">
   <form class="register-form" [formGroup]="signUpForm" (ngSubmit)="onSumbit()">
     <div class="form-control">
       <label class="form-control__label" for="login-email">Email</label>
@@ -116,4 +116,4 @@
     <div>Don’t have an account? <a routerLink="/signup">Sign up</a></div>
     <div>Forget Password? <a routerLink="/forgot">Restore</a></div>
   </div> -->
-</app-modal-window>
+</app-login-modal-window>

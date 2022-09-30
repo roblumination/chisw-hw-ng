@@ -1,7 +1,7 @@
 <app-simple-card class="tickets">
   <!-- <div class="table-widgets"></div> -->
   <app-table-widgets
-    (requestSetSortBy)="setSort($event)"
+    (requestSetSortBy)="setSortBy($event)"
     (requestSetFilterPhrase)="setFilterPhrase($event)"
   ></app-table-widgets>
   <table mat-table [dataSource]="ticketsDataSource">
@@ -63,7 +63,12 @@
     <ng-container matColumnDef="context">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let ticket; let i = index">
-        <button [mat-menu-trigger-for]="itemMenu">.</button>
+        <button
+          [mat-menu-trigger-for]="itemMenu"
+          (click)="ticketId = ticket.id"
+        >
+          .
+        </button>
       </mat-cell>
     </ng-container>
 
@@ -72,15 +77,32 @@
 
     <!-- --- 3-DOT MENU --- -->
     <mat-menu #itemMenu="matMenu" class="mat-menu">
-      <button mat-menu-item>
+      <button mat-menu-item (click)="editTicket()">
         <mat-icon>edit</mat-icon>
         <span>Edit</span>
       </button>
-      <button mat-menu-item>
+      <button mat-menu-item (click)="isModalComfirmHidden = false">
         <mat-icon>delete</mat-icon>
-
         <span>Delete</span>
       </button>
     </mat-menu>
   </table>
 </app-simple-card>
+
+<app-modal-wrapper [isHidden]="isModalComfirmHidden" class="modal-delete">
+  <div class="modal-delete__icon__wrapper">
+    <mat-icon class="modal-delete__icon">delete</mat-icon>
+  </div>
+  <div class="modal-delete__header">Are you sure?</div>
+  <div class="modal-delete__buttons">
+    <button
+      mat-flat-button
+      color="warn"
+      class="mat-button-custom"
+      (click)="deleteTicket()"
+    >
+      Delete
+    </button>
+    <button mat-button (click)="isModalComfirmHidden = true">Cancel</button>
+  </div>
+</app-modal-wrapper>
