@@ -46,9 +46,9 @@ table {
 .mat-column-context {
   max-width: 30px;
   margin-right: 31px;
-  button {
-    @include likeButton();
-    @include emptyBututon();
+  overflow: visible;
+
+  .dot-icon {
     height: 24px;
     width: 24px;
     background-color: $grayscale-gray-light;

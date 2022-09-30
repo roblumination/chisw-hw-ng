@@ -3,27 +3,35 @@
     <img src="/assets/img/logo.svg" alt="" class="logo__img" />
     <span>Dashboard Kit</span>
   </div>
+
   <nav class="navigation">
+    <!-- --- MAIN TABS --- -->
     <div
       *ngFor="let tab of tabs; index as i"
       class="tab"
       [class.tab_active]="tab.title == currentTab"
       (click)="setCurrentTab(tab.title)"
+      mat-ripple
+      matRippleColor="#dde2ff22"
     >
-      <!-- <img src="{{ tab.imageSrc }}" alt="" width="16px" height="16px" /> -->
       <div
         class="ico"
         [style.-webkit-mask-image]="'url(' + tab.imageSrc + ')'"
       ></div>
       {{ tab.title }}
     </div>
+
+    <!-- --- DIVIDER --- -->
     <div class="divider"></div>
+
+    <!-- --- SETTINGS TAB --- -->
     <div
       class="tab"
       [class.tab_active]="currentTab == 'Settings'"
       (click)="setCurrentTabSettings()"
+      mat-ripple
+      matRippleColor="#dde2ff22"
     >
-      <!-- <img src="{{ tab.imageSrc }}" alt="" width="16px" height="16px" /> -->
       <div
         class="ico"
         [style.-webkit-mask-image]="'url(/assets/img/navIcon-settings.svg)'"
