@@ -116,6 +116,7 @@ $dashboard-kit-theme: mat.define-light-theme(
 @import "colors.scss";
 @import "mixins.scss";
 @import "inputs.scss";
+@import "modal.scss";
 
 * {
   box-sizing: border-box;
@@ -138,6 +139,10 @@ a {
     text-decoration: underline;
   }
 }
+
+// .mat-flat-button {
+//   @include matButtonCustomStyle();
+// }
 
 // html,
 // body {

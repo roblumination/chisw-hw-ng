@@ -1,0 +1,15 @@
+.modal-btn-wrapper {
+  @include flexColCenter(15px);
+  & > * {
+    @include defaultButton();
+    width: 100%;
+  }
+}
+
+.modal-head {
+  font-size: 24px;
+  color: $grayscale-black;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 48px;
+}

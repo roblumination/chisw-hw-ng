@@ -1,11 +1,12 @@
 <app-simple-card class="tickets">
-  <!-- <div class="table-widgets"></div> -->
+  <!-- --- SORT, FILTER & ADD BUTTONS --- -->
   <app-table-widgets
     (requestSetSortBy)="setSortBy($event)"
     (requestSetFilterPhrase)="setFilterPhrase($event)"
+    (requestAddNew)="addNewTicket()"
   ></app-table-widgets>
   <table mat-table [dataSource]="ticketsDataSource">
-    <!-- --- TICKET DETAILS --- -->
+    <!-- --- COLUMN: TICKET DETAILS --- -->
     <ng-container matColumnDef="ticketDetails">
       <mat-header-cell class="table-column-big" *matHeaderCellDef>
         Ticket details
@@ -23,7 +24,7 @@
       </mat-cell>
     </ng-container>
 
-    <!-- --- CUSTOMER NAME --- -->
+    <!-- --- COLUMN: CUSTOMER NAME --- -->
     <ng-container matColumnDef="customerName">
       <mat-header-cell *matHeaderCellDef>Customer name</mat-header-cell>
       <mat-cell *matCellDef="let ticket">
@@ -36,7 +37,7 @@
       </mat-cell>
     </ng-container>
 
-    <!-- --- DATE --- -->
+    <!-- --- COLUMN: DATE --- -->
     <ng-container matColumnDef="date">
       <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
       <mat-cell *matCellDef="let ticket">
@@ -51,7 +52,7 @@
       </mat-cell>
     </ng-container>
 
-    <!-- --- PRIORITY --- -->
+    <!-- --- COLUMN: PRIORITY --- -->
     <ng-container matColumnDef="priority">
       <mat-header-cell *matHeaderCellDef>Priority</mat-header-cell>
       <mat-cell *matCellDef="let ticket">
@@ -59,7 +60,7 @@
       </mat-cell>
     </ng-container>
 
-    <!-- --- 3-DOT MENU BUTTON --- -->
+    <!-- --- COLUMN: 3-DOT MENU BUTTON --- -->
     <ng-container matColumnDef="context">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let ticket; let i = index">
@@ -96,8 +97,8 @@
   <div class="modal-delete__icon__wrapper">
     <mat-icon class="modal-delete__icon">delete</mat-icon>
   </div>
-  <div class="modal-delete__header">Are you sure?</div>
-  <div class="modal-delete__buttons">
+  <div class="modal-delete__header modal-head">Are you sure?</div>
+  <div class="modal-delete__buttons modal-btn-wrapper">
     <button
       mat-flat-button
       color="warn"
@@ -108,4 +109,10 @@
     </button>
     <button mat-button (click)="isModalComfirmHidden = true">Cancel</button>
   </div>
+</app-modal-wrapper>
+<app-modal-wrapper class="modal-add" [isHidden]="isModalAddHidden">
+  <app-add-ticket-form
+    (requestCloseWindow)="isModalAddHidden = true"
+    [ticketId]="ticketId"
+  ></app-add-ticket-form>
 </app-modal-wrapper>

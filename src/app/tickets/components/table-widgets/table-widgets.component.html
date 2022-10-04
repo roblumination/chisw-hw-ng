@@ -54,6 +54,7 @@
     [class.filter-input__hidden]="!isInputShown"
   >
     <input
+      matRipple
       matNativeControl
       type="text"
       placeholder="Filter by text"
@@ -71,4 +72,6 @@
 </div>
 
 <!-- --- ADD NEW BUTTON --- -->
-<button mat-button color="primary" class="add-button">+ Add contact</button>
+<button mat-button color="primary" class="add-button" (click)="addNew()">
+  + Add contact
+</button>

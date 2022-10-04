@@ -1,0 +1,66 @@
+<form class="form" [formGroup]="ticketForm" (ngSubmit)="onSubmit()">
+  <div *ngIf="mode === 'add'" class="modal-add__header modal-head">
+    Add tickets
+  </div>
+  <div *ngIf="mode === 'edit'" class="modal-add__header modal-head">
+    Edit tickets
+  </div>
+  <div class="form__inputs">
+    <mat-form-field appearance="outline" floatLabel="always">
+      <label class="custom-label">Ticket Details</label>
+      <!-- <label for="">text</label> -->
+      <input
+        matNativeControl
+        type="text"
+        placeholder="Add description"
+        formControlName="details"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <label class="custom-label">Customer name</label>
+      <input
+        matInput
+        type="text"
+        placeholder="Name"
+        formControlName="customerName"
+      />
+      <mat-datepicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <label class="custom-label">Date</label>
+      <input
+        matInput
+        type="text"
+        placeholder="Select date"
+        [matDatepicker]="picker"
+        formControlName="date"
+      />
+      <mat-datepicker></mat-datepicker>
+
+      <mat-datepicker-toggle matSuffix [for]="picker">
+        <!-- <mat-icon matDatepickerToggleIcon svgIcon="custom_calendar"> -->
+        <mat-icon matDatepickerToggleIcon>
+          <div class="calendar-ico"></div>
+          <!-- <img src="/assets/img/ico_calender.svg" alt="calendar" /> -->
+        </mat-icon>
+      </mat-datepicker-toggle>
+      <mat-datepicker #picker class="custom-datepicker"></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <label class="custom-label">Priority</label>
+      <mat-select placeholder="Select priority" formControlName="priority">
+        <!-- <mat-option>-</mat-option> -->
+        <mat-option *ngFor="let priority of ticketPriority" [value]="priority">
+          {{ priority.charAt(0) + priority.slice(1).toLowerCase() }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="form__buttons modal-btn-wrapper">
+    <button type="submit" mat-flat-button color="primary">Add</button>
+    <button type="button" mat-button (click)="close()">Cancel</button>
+  </div>
+</form>

@@ -1,6 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
+import { AddTicketFormComponent } from './components/add-ticket-form/add-ticket-form.component';
+import { TicketPriority } from './models/priority.enum';
 import Ticket from './models/ticket.interface';
 import { TicketService } from './services/ticket.service';
 
@@ -24,9 +26,12 @@ export class TicketsComponent implements OnDestroy {
   ];
 
   isModalComfirmHidden = true;
+  isModalAddHidden = true;
 
   // to delete or edit
   ticketId = -1;
+
+  @ViewChild(AddTicketFormComponent) private formComp!: AddTicketFormComponent;
 
   constructor(private ticketsService: TicketService) {
     this.ticketsSubscription = this.ticketsService
@@ -57,23 +62,20 @@ export class TicketsComponent implements OnDestroy {
   }
 
   editTicket() {
-    console.log('EDIT', this.ticketId);
+    console.log(this.ticketId);
+    this.formComp.updateView();
+    this.isModalAddHidden = false;
   }
 
-  // setSort(sort: keyof Ticket) {
-  //   this.tickets.sort((a, b) => {
-  //     if (sort == 'customerName' || sort == 'ticketName') {
-  //       return a[sort].localeCompare(b[sort], 'en', { numeric: true });
-  //     }
-  //     if (a[sort] > b[sort]) return 1;
-  //     return -1;
-  //   });
-  //   this.updateTable();
-  // }
+  addNewTicket() {
+    this.ticketId = -1;
+    this.formComp.ticketId = -1;
+    this.formComp.updateView();
 
-  // updateTable() {
-  //   this.ticketsDataSource = new MatTableDataSource(this.tickets);
-  // }
+    this.isModalAddHidden = false;
+  }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    this.ticketsSubscription.unsubscribe();
+  }
 }

@@ -18,6 +18,7 @@ export class TableWidgetsComponent implements OnInit {
 
   @Output() requestSetSortBy = new EventEmitter<keyof Ticket>();
   @Output() requestSetFilterPhrase = new EventEmitter<string>();
+  @Output() requestAddNew = new EventEmitter<void>();
 
   constructor() {}
 
@@ -41,5 +42,9 @@ export class TableWidgetsComponent implements OnInit {
 
   setFilterPhrase(phrase: string) {
     this.requestSetFilterPhrase.emit(phrase);
+  }
+
+  addNew() {
+    this.requestAddNew.emit();
   }
 }

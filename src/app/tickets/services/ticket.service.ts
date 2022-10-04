@@ -10,28 +10,24 @@ import TicketGenerator from './TicketGenerator';
 export class TicketService {
   private tickets: Ticket[] = [];
   private tickets$ = new BehaviorSubject<Ticket[]>(this.tickets);
+  private ticket$ = new Subject<Ticket>();
 
   constructor() {
     this.tickets = new TicketGenerator().getRandomTickets();
-
-    // const testTicket = {
-    //   id: 0,
-    //   ticketName: 'edited ticket name',
-    //   customerName: 'edited customer name',
-    //   photoUrl: '',
-    //   lastUpdated: new Date(),
-    //   creationDate: new Date(),
-    //   priority: TicketPriority.Low,
-    //   customerLastLogin: new Date(),
-    // };
-
-    // setTimeout(() => this.edit(testTicket), 3000);
-    // setTimeout(() => this.delete(0), 3000);
   }
 
   getAll(): Observable<Ticket[]> {
     this.sendChanges();
     return this.tickets$.asObservable();
+  }
+
+  getById(id: number): Observable<Ticket> {
+    // return this.tickets.filter
+    // console.log('get by id');
+    setTimeout(() => {
+      this.ticket$.next(this.tickets.filter((t) => t.id === id)[0]);
+    }, 0);
+    return this.ticket$.asObservable();
   }
 
   delete(id: number) {
