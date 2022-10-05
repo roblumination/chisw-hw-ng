@@ -2,6 +2,7 @@
   border: 1px solid $grayscale-divider;
   box-shadow: 0 5px 15px rgba($grayscale-dark, 0.1);
   padding: 0px;
+  border-radius: 8px !important;
   // color: $accent;
 
   // &.mat-menu-panel {
@@ -16,5 +17,9 @@
 
   & .mat-icon {
     color: $grayscale-dark;
+  }
+
+  .mat-menu-content:not(:empty) {
+    padding: 0px;
   }
 }

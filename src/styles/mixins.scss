@@ -78,6 +78,18 @@
       // border-radius: 8px;
       background-color: $grayscale-gray-extralight;
     }
+
+    .mat-form-field-appearance-outline
+      .mat-form-field-outline-thick
+      .mat-form-field-outline-start,
+    .mat-form-field-appearance-outline
+      .mat-form-field-outline-thick
+      .mat-form-field-outline-end,
+    .mat-form-field-appearance-outline
+      .mat-form-field-outline-thick
+      .mat-form-field-outline-gap {
+      border-width: 1px !important;
+    }
   }
 
   //input outline color
@@ -208,7 +220,8 @@
     color: $grayscale-gray;
     letter-spacing: 0.4px;
     .mat-paginator-container {
-      // background-color: #f00 !important;
+      // background-color: #000 !important;
+      border-radius: 8px;
       padding: 0px 16px !important;
 
       // ARROWS

@@ -113,6 +113,7 @@ export class AddTicketFormComponent {
     this.currentTicket.ticketName = formOutput.details!;
     this.currentTicket.creationDate = new Date(formOutput.date!);
     this.currentTicket.priority = formOutput.priority as TicketPriority;
+    this.currentTicket.lastUpdated = new Date();
   }
 
   addTicket() {

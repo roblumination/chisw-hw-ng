@@ -41,6 +41,7 @@ export class TicketsComponent implements OnDestroy {
       .subscribe((response) => {
         // console.log(response);
         this.ticketsDataSource = new MatTableDataSource(response);
+        this.ticketsDataSource.paginator = this.paginator;
         this.filter();
       });
   }

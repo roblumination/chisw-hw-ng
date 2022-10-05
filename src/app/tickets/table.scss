@@ -68,12 +68,26 @@ table {
   }
 }
 
+::ng-deep .mat-header-row {
+  min-height: 32px !important;
+  border-bottom: 1.5px solid $grayscale-divider;
+}
+
 .mat-header-cell {
   color: $grayscale-gray;
   font-weight: 700;
+  letter-spacing: 0.2px;
 
   &:first-child {
     padding-left: 31px;
   }
   // background-color: #f05;
+}
+
+.mat-row {
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba($accent, 0.04);
+  }
 }
