@@ -4,7 +4,7 @@ import { randomIssues } from './randomIssues';
 import { randomNames } from './randomNames';
 
 export default class TicketGenerator {
-  private readonly USER_AMOUNT = 4;
+  private readonly USER_AMOUNT = 100;
   private readonly PRIORITY = [
     TicketPriority.Hight,
     TicketPriority.Normal,

@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { AddTicketFormComponent } from './components/add-ticket-form/add-ticket-form.component';
@@ -32,6 +33,7 @@ export class TicketsComponent implements OnDestroy {
   ticketId = -1;
 
   @ViewChild(AddTicketFormComponent) private formComp!: AddTicketFormComponent;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private ticketsService: TicketService) {
     this.ticketsSubscription = this.ticketsService
@@ -41,6 +43,10 @@ export class TicketsComponent implements OnDestroy {
         this.ticketsDataSource = new MatTableDataSource(response);
         this.filter();
       });
+  }
+
+  ngAfterViewInit() {
+    this.ticketsDataSource.paginator = this.paginator;
   }
 
   setFilterPhrase(phrase: string) {

@@ -5,6 +5,8 @@
     (requestSetFilterPhrase)="setFilterPhrase($event)"
     (requestAddNew)="addNewTicket()"
   ></app-table-widgets>
+
+  <!-- --- TABLE --- -->
   <table mat-table [dataSource]="ticketsDataSource">
     <!-- --- COLUMN: TICKET DETAILS --- -->
     <ng-container matColumnDef="ticketDetails">
@@ -91,6 +93,11 @@
       </button>
     </mat-menu>
   </table>
+
+  <mat-paginator
+    [pageSize]="8"
+    [pageSizeOptions]="[5, 8, 12, 20]"
+  ></mat-paginator>
 </app-simple-card>
 
 <app-modal-wrapper [isHidden]="isModalComfirmHidden" class="modal-delete">

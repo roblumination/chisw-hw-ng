@@ -203,6 +203,63 @@
   }
 }
 
+@mixin matPaginatorCustomStyle() {
+  ::ng-deep .mat-paginator {
+    color: $grayscale-gray;
+    letter-spacing: 0.4px;
+    .mat-paginator-container {
+      // background-color: #f00 !important;
+      padding: 0px 16px !important;
+
+      // ARROWS
+      .mat-icon-button {
+        width: 32px;
+        height: 32px;
+        @include flexCenter();
+        // display: flex;
+      }
+      .mat-paginator-icon {
+        width: 24px !important;
+      }
+
+      // INPUT SELECT PAGE
+      .mat-form-field-flex {
+        padding: 0px !important;
+      }
+      .mat-form-field .mat-form-field-outline {
+        background-color: #0000;
+      }
+
+      .mat-form-field-appearance-outline .mat-form-field-outline {
+        color: #0000 !important;
+      }
+
+      .mat-paginator-page-size-select.mat-form-field-appearance-outline {
+        width: 36px;
+      }
+
+      .mat-form-field-appearance-outline.mat-focused
+        .mat-form-field-outline-thick {
+        color: #0000 !important;
+      }
+
+      .mat-form-field .mat-form-field-infix {
+        // padding: 3px 0px;
+        height: 48px !important;
+      }
+
+      .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
+        transform: translate(-5px, -25%) !important;
+      }
+
+      //label
+      .mat-paginator-range-label {
+        margin: 0 16px 0 24px;
+      }
+    }
+  }
+}
+
 @mixin defaultButton() {
   height: 48px;
   border-radius: 8px;
