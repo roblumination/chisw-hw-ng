@@ -4,7 +4,7 @@ import { randomIssues } from './randomIssues';
 import { randomNames } from './randomNames';
 
 export default class TicketGenerator {
-  private readonly USER_AMOUNT = 20;
+  private readonly USER_AMOUNT = 4;
   private readonly PRIORITY = [
     TicketPriority.Hight,
     TicketPriority.Normal,
@@ -15,9 +15,16 @@ export default class TicketGenerator {
 
   constructor() {}
 
-  public getRandomTickets() {
+  getRandomTickets() {
     this.generateTickets();
     return this.tickets;
+  }
+
+  getRandomProfileImgUrl(): string {
+    const seed = this.getRandom(0, 10000);
+    // const type = 'adventurer-neutral';
+    const type = 'big-ears-neutral';
+    return `https://avatars.dicebear.com/api/${type}/${seed}.svg`;
   }
 
   private generateTickets() {
@@ -46,12 +53,6 @@ export default class TicketGenerator {
   private getRandom(max: number, min: number = 0): number {
     const range = max - min;
     return ~~(Math.random() * range) + min;
-  }
-
-  private getRandomProfileImgUrl(): string {
-    const seed = this.getRandom(0, 10000);
-    const type = 'adventurer-neutral';
-    return `https://avatars.dicebear.com/api/${type}/${seed}.svg`;
   }
 
   private getRandomDate(start: Date, end: Date) {

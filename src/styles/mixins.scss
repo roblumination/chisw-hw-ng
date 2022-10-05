@@ -148,6 +148,7 @@
   }
 
   ::ng-deep .mat-datepicker-content {
+    background-color: $grayscale-gray-extralight;
     border: 1px solid $grayscale-divider;
     border-radius: 8px !important;
     box-shadow: 0 5px 15px rgba($grayscale-dark, 0.1);
@@ -155,6 +156,7 @@
 
   ::ng-deep .mat-calendar-header {
     background-color: $grayscale-gray-lightest;
+    color: $grayscale-dark;
     padding: 8px 0 0 0;
     border-radius: 7px 7px 0 0;
   }
@@ -169,17 +171,28 @@
 
   // Days of week
   ::ng-deep .mat-calendar-table-header {
-    $calendar-table-header-color: lighten($grayscale-gray-lightest, 3%);
+    // $calendar-table-header-color: lighten($grayscale-gray-lightest, 3%);
+    $calendar-table-header-color: $grayscale-gray-lightest;
+    // $calendar-table-header-color: #f00;
     box-sizing: content-box;
     background-color: $calendar-table-header-color;
     border-left: 8px solid $calendar-table-header-color;
     border-right: 8px solid $calendar-table-header-color;
     border-top: 16px solid $calendar-table-header-color;
-    border-bottom: 10px solid $white;
+    // border-bottom: 10px solid $white;
   }
 
   ::ng-deep .mat-calendar-controls {
     margin: 0px !important;
+    color: $grayscale-dark !important;
+
+    .mat-focus-indicator {
+      color: $grayscale-dark;
+    }
+
+    .mat-calendar-arrow {
+      fill: $grayscale-dark;
+    }
   }
 
   ::ng-deep .mat-calendar-table-header-divider {

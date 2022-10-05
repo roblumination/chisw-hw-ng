@@ -1,10 +1,12 @@
 <form class="form" [formGroup]="ticketForm" (ngSubmit)="onSubmit()">
+  <!-- --- HEADER --- -->
   <div *ngIf="mode === 'add'" class="modal-add__header modal-head">
     Add tickets
   </div>
   <div *ngIf="mode === 'edit'" class="modal-add__header modal-head">
     Edit tickets
   </div>
+  <!-- --- INPUTS --- -->
   <div class="form__inputs">
     <mat-form-field appearance="outline" floatLabel="always">
       <label class="custom-label">Ticket Details</label>
@@ -53,14 +55,24 @@
       <label class="custom-label">Priority</label>
       <mat-select placeholder="Select priority" formControlName="priority">
         <!-- <mat-option>-</mat-option> -->
-        <mat-option *ngFor="let priority of ticketPriority" [value]="priority">
-          {{ priority.charAt(0) + priority.slice(1).toLowerCase() }}
+        <mat-option
+          *ngFor="let priority of ticketPriority | keyvalue"
+          [value]="priority.value"
+        >
+          {{
+            priority.value.toString().charAt(0) +
+              priority.value.toString().slice(1).toLowerCase()
+          }}
         </mat-option>
       </mat-select>
     </mat-form-field>
   </div>
+  <!-- --- BUTTONS --- -->
   <div class="form__buttons modal-btn-wrapper">
-    <button type="submit" mat-flat-button color="primary">Add</button>
-    <button type="button" mat-button (click)="close()">Cancel</button>
+    <button type="submit" mat-flat-button color="primary">
+      <span *ngIf="mode === 'add'">Add</span>
+      <span *ngIf="mode === 'edit'">Save</span>
+    </button>
+    <button type="button" mat-button (click)="closeModal()">Cancel</button>
   </div>
 </form>

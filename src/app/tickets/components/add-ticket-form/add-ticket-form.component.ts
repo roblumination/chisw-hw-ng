@@ -30,10 +30,8 @@ export class AddTicketFormComponent {
     date: new FormControl('', Validators.required),
     priority: new FormControl('', Validators.required),
   });
-  @Input() ticketId: number = -1;
-  @Output() requestCloseWindow = new EventEmitter<void>();
 
-  readonly ticketBlank: Ticket = {
+  readonly TICKET_BLANK: Ticket = {
     id: -1,
     customerLastLogin: new Date(),
     customerName: 'INIT',
@@ -43,7 +41,7 @@ export class AddTicketFormComponent {
     ticketName: 'INIT',
     priority: TicketPriority.Hight,
   };
-  currentTicket = this.ticketBlank;
+  currentTicket = this.TICKET_BLANK;
 
   get mode(): FormMode {
     return this.ticketId >= 0 ? 'edit' : 'add';
@@ -61,26 +59,29 @@ export class AddTicketFormComponent {
     return this.ticketForm.get('priority') as AbstractControl;
   }
 
+  @Input() ticketId: number = -1;
+  @Output() requestCloseWindow = new EventEmitter<void>();
+
   constructor(private ticketService: TicketService) {
     this.ticketSubscription = ticketService.getById(0).subscribe(() => {});
   }
 
   updateView() {
+    this.ticketForm.reset();
     if (this.mode === 'add') {
-      this.currentTicket = this.ticketBlank;
-      this.fillForm();
+      this.currentTicket = this.TICKET_BLANK;
     } else {
       this.ticketSubscription.unsubscribe();
       this.ticketSubscription = this.ticketService
         .getById(this.ticketId)
         .subscribe((ticket) => {
           this.currentTicket = ticket;
-          this.fillForm();
+          this.fillTicketForm();
         });
     }
   }
 
-  fillForm() {
+  fillTicketForm() {
     this.details.setValue(this.currentTicket.ticketName);
     this.customerName.setValue(this.currentTicket.customerName);
     // this.date.setValue(this.mode === 'add' ? '' : '00/00/0000');
@@ -95,11 +96,37 @@ export class AddTicketFormComponent {
     // this.
   }
 
-  close() {
+  closeModal() {
     this.requestCloseWindow.emit();
   }
 
   onSubmit() {
-    console.log(this.ticketForm.value);
+    if (this.ticketForm.valid) {
+      this.mode === 'add' ? this.addTicket() : this.editTicket();
+      this.closeModal();
+    }
+  }
+
+  editTicket() {
+    const formOutput = this.ticketForm.value;
+    this.currentTicket.customerName = formOutput.customerName!;
+    this.currentTicket.ticketName = formOutput.details!;
+    this.currentTicket.creationDate = new Date(formOutput.date!);
+    this.currentTicket.priority = formOutput.priority as TicketPriority;
+  }
+
+  addTicket() {
+    console.log('ADD!');
+    const formOutput = this.ticketForm.value;
+    this.currentTicket.customerName = formOutput.customerName!;
+    this.currentTicket.ticketName = formOutput.details!;
+    this.currentTicket.photoUrl = this.ticketService.getRandomProfilePic();
+    this.currentTicket.creationDate = new Date(formOutput.date!);
+
+    // IDK HOW TO DO IT ANOTHER WAY
+    this.currentTicket.priority = formOutput.priority as TicketPriority;
+    //
+
+    this.ticketService.add(this.currentTicket);
   }
 }
