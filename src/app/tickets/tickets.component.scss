@@ -1,17 +1,11 @@
 @import "colors.scss";
 @import "mixins.scss";
 @import "./table.scss";
-@import "./menu.scss";
+
+@include matMenuCustomStyle();
 
 :host {
   flex-grow: 1;
-}
-
-.tickets {
-  // overflow-x: scroll;
-}
-
-.mat-row:hover {
 }
 
 .mat-flat-button {

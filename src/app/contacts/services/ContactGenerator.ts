@@ -3,7 +3,7 @@ import Contact from '../models/contact.interface';
 import { randomNames } from './randomNames';
 
 export default class ContactGenerator {
-  private readonly USER_AMOUNT = 2;
+  private readonly USER_AMOUNT = 100;
 
   private contacts: Array<Contact> = [];
 

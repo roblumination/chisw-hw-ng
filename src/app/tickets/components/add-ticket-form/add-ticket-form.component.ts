@@ -84,16 +84,13 @@ export class AddTicketFormComponent {
   fillTicketForm() {
     this.details.setValue(this.currentTicket.ticketName);
     this.customerName.setValue(this.currentTicket.customerName);
-    // this.date.setValue(this.mode === 'add' ? '' : '00/00/0000');
     if (this.mode === 'edit') {
       this.date.setValue(this.currentTicket.creationDate);
       this.priority.setValue(this.currentTicket.priority);
     } else {
-      // console.log()
       this.priority.setValue('');
       this.date.setValue('');
     }
-    // this.
   }
 
   closeModal() {

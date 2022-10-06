@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-login-page',
@@ -8,10 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent {
-  mockUser = {
-    email: 'test@gmail.com',
-    pass: 'ilovekebab',
-  };
+  private readonly REDIRECT_PATH = '/main/overview';
   passMode = true;
   @ViewChild('passwordField') passwordField!: ElementRef;
   loginForm = new FormGroup({
@@ -19,7 +17,9 @@ export class LoginPageComponent {
     password: new FormControl('', [Validators.required]),
   });
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {
+    if (this.authService.isLoggedIn) this.redirectToMainPage();
+  }
 
   get email() {
     return this.loginForm.get('email');
@@ -34,13 +34,23 @@ export class LoginPageComponent {
   }
 
   onSumbit() {
-    if (
-      this.mockUser.email === this.loginForm.value.email &&
-      this.mockUser.pass === this.loginForm.value.password
-    ) {
-      console.log('USER OK!');
-      this.router.navigate(['/main']);
-    }
-    console.log(this.loginForm.value);
+    const [email, pass] = [
+      this.loginForm.value.email ?? '',
+      this.loginForm.value.password ?? '',
+    ];
+    this.authService
+      .login(email, pass)
+      .then(() => {
+        this.redirectToMainPage();
+      })
+      .catch(() => {
+        alert('wrong password');
+      });
+    // console.log('USER OK!');
+    // this.router.navigate(['/main']);
+  }
+
+  private redirectToMainPage() {
+    this.router.navigate([this.REDIRECT_PATH]);
   }
 }

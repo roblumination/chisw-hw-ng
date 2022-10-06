@@ -1,7 +1,8 @@
 @import "colors.scss";
 @import "mixins.scss";
 @import "./table.scss";
-@import "./menu.scss";
+
+@include matMenuCustomStyle();
 
 :host {
   flex-grow: 1;
