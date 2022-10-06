@@ -27,7 +27,7 @@ import {
   MatPaginatorIntl,
   MatPaginatorModule,
 } from '@angular/material/paginator';
-import { PaginatorConfig } from './PaginatorConfig';
+import { PaginatorConfig } from '../shared/PaginatorConfig';
 
 @NgModule({
   declarations: [

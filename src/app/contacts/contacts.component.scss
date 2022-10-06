@@ -1,6 +1,6 @@
 @import "colors.scss";
 @import "mixins.scss";
-@import "./table.scss";
+@import "table.scss";
 
 @include matMenuCustomStyle();
 
@@ -30,12 +30,4 @@
       @include flexCenter();
     }
   }
-}
-
-.paginator {
-  position: sticky;
-  bottom: 0px;
-  border-radius: 8px;
-  // background-color: #f00;
-  background: linear-gradient(#f0f0 0%, #fff 20% 100%);
 }

@@ -186,6 +186,10 @@
   ::ng-deep .mat-paginator {
     color: $grayscale-gray;
     letter-spacing: 0.4px;
+
+    &-icon {
+      width: 24px !important;
+    }
     .mat-paginator-container {
       // background-color: #000 !important;
       border-radius: 8px;
@@ -198,20 +202,27 @@
         @include flexCenter();
         // display: flex;
       }
-      .mat-paginator-icon {
-        width: 24px !important;
-      }
+      // .mat-paginator-icon {
+      //   width: 24px !important;
+      // }
 
       // INPUT SELECT PAGE
       .mat-form-field-flex {
         padding: 0px !important;
       }
-      .mat-form-field .mat-form-field-outline {
-        background-color: #0000;
-      }
 
-      .mat-form-field-appearance-outline .mat-form-field-outline {
-        color: #0000 !important;
+      .mat-form-field {
+        margin: 0px;
+
+        &-flex {
+          padding: 0px !important;
+        }
+
+        &-appearance-outline {
+          .mat-form-field-outline {
+            color: #0000 !important;
+          }
+        }
       }
 
       .mat-paginator-page-size-select.mat-form-field-appearance-outline {

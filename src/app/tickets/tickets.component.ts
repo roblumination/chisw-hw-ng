@@ -33,7 +33,7 @@ export class TicketsComponent implements OnDestroy {
   ticketId = -1;
 
   @ViewChild(AddTicketFormComponent) private formComp!: AddTicketFormComponent;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatPaginator) ticketPaginator!: MatPaginator;
 
   constructor(private ticketsService: TicketService) {
     this.ticketsSubscription = this.ticketsService
@@ -41,13 +41,13 @@ export class TicketsComponent implements OnDestroy {
       .subscribe((response) => {
         // console.log(response);
         this.ticketsDataSource = new MatTableDataSource(response);
-        this.ticketsDataSource.paginator = this.paginator;
+        this.ticketsDataSource.paginator = this.ticketPaginator;
         this.filter();
       });
   }
 
   ngAfterViewInit() {
-    this.ticketsDataSource.paginator = this.paginator;
+    this.ticketsDataSource.paginator = this.ticketPaginator;
   }
 
   setFilterPhrase(phrase: string) {
