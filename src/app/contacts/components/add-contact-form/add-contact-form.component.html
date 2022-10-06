@@ -1,0 +1,57 @@
+<form class="form" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+  <!-- --- HEADER --- -->
+  <div *ngIf="mode === 'add'" class="modal-add__header modal-head">
+    Add contacts
+  </div>
+  <div *ngIf="mode === 'edit'" class="modal-add__header modal-head">
+    Edit contacts
+  </div>
+  <!-- --- INPUTS --- -->
+  <div class="form__inputs">
+    <mat-form-field appearance="outline" floatLabel="always">
+      <label class="custom-label">First Name</label>
+      <input
+        matNativeControl
+        type="text"
+        placeholder="First name"
+        formControlName="firstName"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <label class="custom-label">Last name</label>
+      <input
+        matInput
+        type="text"
+        placeholder="Last name"
+        formControlName="lastName"
+      />
+      <mat-datepicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <label class="custom-label">Email</label>
+      <input matInput type="text" placeholder="Email" formControlName="email" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <label class="custom-label">Adrress</label>
+      <input
+        matInput
+        type="text"
+        placeholder="Address"
+        formControlName="address"
+      />
+    </mat-form-field>
+  </div>
+  <!-- --- BUTTONS --- -->
+  <div class="form__buttons modal-btn-wrapper">
+    <button type="submit" mat-flat-button color="primary">
+      <span *ngIf="mode === 'add'">Add</span>
+      <span *ngIf="mode === 'edit'">Save</span>
+    </button>
+    <button type="button" color="primary" mat-button (click)="closeModal()">
+      Cancel
+    </button>
+  </div>
+</form>

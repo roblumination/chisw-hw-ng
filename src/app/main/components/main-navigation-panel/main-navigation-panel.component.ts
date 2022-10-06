@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NavigationTabsNames } from '../../NavigationTabsNames.enum';
 
 type NavigationTab = {
@@ -12,7 +13,7 @@ type NavigationTab = {
   styleUrls: ['./main-navigation-panel.component.scss'],
 })
 export class MainNavigationPanelComponent {
-  currentTab: NavigationTabsNames = NavigationTabsNames.Overview;
+  currentTab: NavigationTabsNames = this.getCurrentTabName();
   tabs: Array<NavigationTab> = [
     {
       title: NavigationTabsNames.Overview,
@@ -28,6 +29,8 @@ export class MainNavigationPanelComponent {
     },
   ];
 
+  constructor(private router: Router) {}
+
   @Output() tabChangeEvent: EventEmitter<NavigationTabsNames> =
     new EventEmitter<NavigationTabsNames>();
 
@@ -40,5 +43,13 @@ export class MainNavigationPanelComponent {
 
   setCurrentTabSettings() {
     this.setCurrentTab(NavigationTabsNames.Settings);
+  }
+
+  getCurrentTabName(): NavigationTabsNames {
+    const current = this.router.url.split('/')[2];
+    if (current == 'tickets') return NavigationTabsNames.Tickets;
+    if (current == 'contacts') return NavigationTabsNames.Contacts;
+    if (current == 'settings') return NavigationTabsNames.Settings;
+    return NavigationTabsNames.Overview;
   }
 }

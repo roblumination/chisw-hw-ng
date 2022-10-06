@@ -10,6 +10,7 @@ import { TicketsModule } from '../tickets/tickets.module';
 import { SettingsModule } from '../settings/settings.module';
 
 import { MatRippleModule } from '@angular/material/core';
+import { ContactsModule } from '../contacts/contacts.module';
 
 @NgModule({
   declarations: [MainComponent, MainNavigationPanelComponent],
@@ -19,6 +20,7 @@ import { MatRippleModule } from '@angular/material/core';
     SharedModule,
     OverviewModule,
     TicketsModule,
+    ContactsModule,
     SettingsModule,
     MatRippleModule,
   ],

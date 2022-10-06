@@ -1,0 +1,53 @@
+@import "mixins.scss";
+
+.mat-flat-button {
+  @include matButtonCustomStyle();
+}
+
+.mat-button {
+  @include defaultButton();
+}
+
+.calendar-ico {
+  display: inline-block;
+  background-color: $grayscale-ico;
+  // border: 1px solid #f00;
+  // background-color: #f00;
+  width: 20px;
+  height: 20px;
+  mask-image: url("/assets/img/ico_calender.svg");
+
+  &:active {
+    background-color: $accent;
+  }
+}
+
+// .custom-datepicker {
+//   border: 5px solid #0ff;
+// }
+
+// ::ng-deep .cdk-overlay-container mat-datepicker-content {
+//   z-index: 20000;
+// }
+
+// .cdk-overlay-pane {
+//   position: absolute;
+//   pointer-events: auto;
+//   box-sizing: border-box;
+//   z-index: 1000;
+//   display: flex;
+//   max-width: 100%;
+//   max-height: 100%;
+//   z-index: 6000;
+// }
+
+.form {
+  display: flex;
+  flex-direction: column;
+
+  &__inputs {
+    & > * {
+      width: 100%;
+    }
+  }
+}

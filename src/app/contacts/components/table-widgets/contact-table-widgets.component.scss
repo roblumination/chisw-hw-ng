@@ -1,0 +1,97 @@
+@import "colors.scss";
+@import "mixins.scss";
+// @import "./table.scss";
+// @import "./menu.scss";
+@include matInputCustomStyle();
+@include matDatePickerCustomStyle();
+
+:host {
+  perspective: 1000px;
+  position: relative;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  padding: 24px 16px;
+  // padding-top: 25px;
+  padding-bottom: 20px;
+  margin-bottom: 10px;
+  gap: 0px;
+  position: sticky;
+  top: -18px;
+  background: linear-gradient(#fff 80%, #fff0);
+  border-radius: 8px;
+
+  button {
+    font-size: 14px;
+    font-weight: 600;
+    // display: flex;
+    color: $grayscale-dark;
+    // gap: 12px;
+
+    .button-ico {
+      width: 16px;
+      height: 16px;
+      background-color: $grayscale-gray-light;
+      margin-right: 15px;
+
+      &__wrapper {
+        display: inline-block;
+        margin-right: 6px;
+        width: 16px;
+        height: 20px;
+      }
+    }
+  }
+
+  .add-button {
+    color: $accent;
+  }
+
+  .sort-button {
+    .button-ico {
+      mask-image: url("/assets/img/sort.svg");
+    }
+  }
+
+  .filter-button {
+    transition: all 0.3s;
+
+    &__hidden {
+      opacity: 0;
+      transform: rotateY(-10deg) translateX(-30px);
+      pointer-events: none;
+    }
+    .button-ico {
+      mask-image: url("/assets/img/filter.svg");
+    }
+  }
+}
+
+.filter-input {
+  width: 100%;
+  margin-right: 15px;
+  margin: 0px;
+  &__button {
+    background-color: #f00;
+    color: #f00;
+    margin-top: 8px !important;
+    margin-right: -5px !important;
+  }
+
+  &__wrapper {
+    flex-grow: 1;
+    display: flex;
+    transition: all 0.3s;
+    margin-left: -80px;
+
+    &_hidden {
+      opacity: 0;
+      transform: rotateX(20deg) translateY(-20px);
+      pointer-events: none;
+    }
+  }
+}
+
+.mat-button {
+  border-radius: 6px;
+}

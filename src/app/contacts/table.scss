@@ -6,7 +6,6 @@ table {
   // max-height: 100%;
   width: 100%;
   // overflow-x: auto;
-  min-width: 700px;
 }
 
 .table-row-img {
@@ -16,7 +15,6 @@ table {
 }
 .mat-cell {
   padding: 24px 0px;
-  margin-right: 5px;
 
   &:first-child {
     padding-left: 31px;
@@ -32,7 +30,7 @@ table {
 .table-ceil-text {
   display: flex;
   align-items: center;
-  min-height: 22px;
+  height: 50%;
 }
 
 .table-ceil-label {
@@ -43,15 +41,10 @@ table {
 .table-ceil-text {
   font-size: 12px;
   color: $grayscale-gray-light;
-  // margin-top: 5px;
 }
 
 .mat-column-ticketDetails {
-  min-width: 40%;
-}
-
-.mat-column-priority {
-  max-width: 13%;
+  min-width: 50%;
 }
 
 .mat-column-context {
@@ -84,7 +77,6 @@ table {
   color: $grayscale-gray;
   font-weight: 700;
   letter-spacing: 0.2px;
-  // margin-right: 5px;
 
   &:first-child {
     padding-left: 31px;

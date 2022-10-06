@@ -1,0 +1,77 @@
+<!-- --- SORT BUTTON --- -->
+<button mat-button class="sort-button" [mat-menu-trigger-for]="sortMenu">
+  <mat-icon class="button-ico__wrapper">
+    <div class="button-ico"></div>
+  </mat-icon>
+  Sort
+</button>
+
+<!-- --- SORT MENU --- -->
+<mat-menu #sortMenu="matMenu" class="mat-menu">
+  <button mat-menu-item (click)="setSortBy('firstName')">
+    <span>First name</span>
+  </button>
+  <button mat-menu-item (click)="setSortBy('lastName')">
+    <span>Last name</span>
+  </button>
+  <button mat-menu-item (click)="setSortBy('email')">
+    <span>Email</span>
+  </button>
+  <button mat-menu-item (click)="setSortBy('address')">
+    <span>Address</span>
+  </button>
+</mat-menu>
+
+<!-- --- FILTER BUTTON --- -->
+<button
+  class="filter-button"
+  mat-button
+  [class.filter-button__hidden]="isInputShown"
+  (click)="isInputShown = true"
+>
+  <mat-icon class="button-ico__wrapper">
+    <div class="button-ico"></div>
+  </mat-icon>
+  Filter
+</button>
+
+<!-- --- FILTER INPUT --- -->
+<div
+  class="filter-input__wrapper"
+  [class.filter-input__wrapper_hidden]="!isInputShown"
+>
+  <button
+    class="filter-input__close-button"
+    mat-icon-button
+    (click)="isInputShown = false"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+  <mat-form-field
+    appearance="outline"
+    floatLabel="never"
+    class="filter-input"
+    [class.filter-input__hidden]="!isInputShown"
+  >
+    <input
+      matRipple
+      matNativeControl
+      type="text"
+      placeholder="Filter by text"
+      #filterInput
+      (input)="setFilterPhrase(filterInput.value)"
+    />
+    <!-- <button
+      matSuffix
+      class="filter-formfield__button"
+      (click)="clearFilterInput()"
+    >
+      <mat-icon>backspace</mat-icon>
+    </button> -->
+  </mat-form-field>
+</div>
+
+<!-- --- ADD NEW BUTTON --- -->
+<button mat-button color="primary" class="add-button" (click)="addNew()">
+  + Add contact
+</button>

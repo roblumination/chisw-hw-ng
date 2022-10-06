@@ -8,7 +8,6 @@ import { TicketsComponent } from '../tickets/tickets.component';
 import { MainComponent } from './main.component';
 
 const routes: Routes = [
-  { path: 'main', redirectTo: '/main/overview', pathMatch: 'full' },
   {
     path: 'main',
     component: MainComponent,

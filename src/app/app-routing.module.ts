@@ -9,7 +9,7 @@ import { MainModule } from './main/main.module';
 import { NotFoundComponent } from './shared/pages/not-found/not-found.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/main', pathMatch: 'full' },
+  { path: '', redirectTo: '/main/overview', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent },
 ];
 

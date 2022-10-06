@@ -1,0 +1,40 @@
+@import "colors.scss";
+@import "mixins.scss";
+@import "./table.scss";
+@import "./menu.scss";
+
+:host {
+  flex-grow: 1;
+}
+
+.mat-row:hover {
+}
+
+.mat-flat-button {
+  @include matButtonCustomStyle();
+}
+
+.mat-button-custom {
+  @include matButtonCustomStyle(#f00);
+}
+
+.modal-delete {
+  &__icon {
+    font-size: 128px;
+    height: 128px;
+    width: 128px;
+    color: rgba($grayscale-black, 0.2);
+
+    &__wrapper {
+      @include flexCenter();
+    }
+  }
+}
+
+.paginator {
+  position: sticky;
+  bottom: 0px;
+  border-radius: 8px;
+  // background-color: #f00;
+  background: linear-gradient(#f0f0 0%, #fff 20% 100%);
+}
