@@ -1,0 +1,17 @@
+<app-simple-card class="list">
+  <header class="header__wrapper">
+    <div class="header">Unresolved tickets</div>
+    <div class="header-sub">
+      <span class="label">Group: </span>
+      <span>Support</span>
+    </div>
+    <button mat-button color="primary" class="more-button">View details</button>
+  </header>
+  <main>
+    <div class="ticket" *ngFor="let ticket of tickets">
+      <div class="ticket__title">{{ ticket.title }}</div>
+      <div class="ticket__ammount">{{ ticket.ammount }}</div>
+      <div></div>
+    </div>
+  </main>
+</app-simple-card>

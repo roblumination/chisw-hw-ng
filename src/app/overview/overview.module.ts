@@ -5,15 +5,27 @@ import { SharedModule } from '../shared/shared.module';
 import { TrendsGraphComponent } from './components/trends-graph/trends-graph.component';
 
 import { NgxEchartsModule } from 'ngx-echarts';
+import { UnresolvedListComponent } from './components/unresolved-list/unresolved-list.component';
+
+import { MatRippleModule } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
+import { TasksMiniComponent } from './components/tasks-mini/tasks-mini.component';
 
 @NgModule({
-  declarations: [OverviewComponent, TrendsGraphComponent],
+  declarations: [
+    OverviewComponent,
+    TrendsGraphComponent,
+    UnresolvedListComponent,
+    TasksMiniComponent,
+  ],
   imports: [
     CommonModule,
     SharedModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts'),
     }),
+    MatRippleModule,
+    MatButtonModule,
   ],
   exports: [OverviewComponent],
 })

@@ -1,0 +1,98 @@
+@import "colors.scss";
+
+.list {
+  padding: 32px;
+  padding-bottom: 8px;
+}
+
+.header {
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  &__wrapper {
+    position: relative;
+    margin-bottom: 16px;
+
+    .more-button {
+      position: absolute;
+      right: -16px;
+      top: -6px;
+      border-radius: 6px;
+    }
+  }
+
+  &-sub {
+    margin-top: 8px;
+    font-size: 12px;
+    color: $grayscale-dark;
+
+    .label {
+      color: $grayscale-gray;
+    }
+  }
+}
+
+.task {
+  position: relative;
+  display: flex;
+  gap: 16px;
+  height: 58px;
+  align-items: center;
+  border-bottom: 1px solid $grayscale-divider;
+  margin: 0 -32px;
+  padding: 0 32px;
+
+  &:last-child {
+    border-bottom: 0px;
+  }
+
+  &__title {
+    font-size: 14px;
+    letter-spacing: 0.2px;
+  }
+
+  &__blank {
+    font-size: 14px;
+    letter-spacing: 0.2px;
+    color: $grayscale-gray-light;
+  }
+  &__sufix {
+    position: absolute;
+    font-size: 14px;
+
+    right: 32px;
+    color: $grayscale-gray;
+  }
+
+  .icon {
+    width: 20px;
+    height: 20px;
+    border: 2px solid $grayscale-gray-light;
+    border-radius: 50%;
+
+    &-checked {
+      border: none;
+      background-color: $accent;
+    }
+  }
+
+  .bage {
+    background-color: $grayscale-gray-lightest;
+    color: $grayscale-gray;
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+
+    &_Y {
+      background-color: $chip-low;
+      color: #fff;
+    }
+
+    &_G {
+      background-color: $chip-normal;
+      color: #fff;
+    }
+  }
+}

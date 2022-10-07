@@ -16,6 +16,14 @@
   row-gap: 15px;
 }
 
+.double-cards {
+  display: flex;
+  gap: 32px;
+  & > * {
+    width: 50%;
+  }
+}
+
 @media screen and (max-width: $screen-size-medium) {
   .card-section {
     column-gap: 15px;

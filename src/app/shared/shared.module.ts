@@ -13,6 +13,7 @@ import { ScrollArrowComponent } from './components/scroll-arrow/scroll-arrow.com
 import { MatIconModule } from '@angular/material/icon';
 import { DaysAgoPipe } from './pipes/days-ago.pipe';
 import { ModalWrapperComponent } from './components/modal-wrapper/modal-wrapper.component';
+import { MatRippleModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { ModalWrapperComponent } from './components/modal-wrapper/modal-wrapper.
     DaysAgoPipe,
     ModalWrapperComponent,
   ],
-  imports: [CommonModule, ReactiveFormsModule, MatIconModule],
+  imports: [CommonModule, ReactiveFormsModule, MatIconModule, MatRippleModule],
   exports: [
     ModalLoginWindowComponent,
     ReactiveFormsModule,
