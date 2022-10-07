@@ -28,10 +28,13 @@
   }
 
   .window {
+    overflow: hidden;
     transition: all 0.2s;
     background-color: $white;
     padding: 32px;
     padding-bottom: 24px;
     width: 380px;
+    max-width: 90vw;
+    max-height: 90vh;
   }
 }

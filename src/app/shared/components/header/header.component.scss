@@ -18,6 +18,7 @@
 .user {
   display: flex;
   align-items: center;
+  transition: all 0.3s;
   gap: 12px;
   font-size: 14px;
   font-weight: 600;
@@ -29,5 +30,10 @@
     object-fit: cover;
     border: 2px solid $grayscale-bg;
     outline: 2px solid $grayscale-divider;
+  }
+
+  &-hidden {
+    opacity: 0;
+    transform: translateX(10px);
   }
 }

@@ -1,1 +1,92 @@
-<p>settings works!</p>
+<app-simple-card class="settings" [class.settings_edited]="isEditMode">
+  <!-- --- PICTURE --- -->
+  <div
+    mat-ripple
+    matRippleColor="#fff3"
+    class="profile-picture"
+    (click)="isPreviewHidden = false"
+  >
+    <img src="/assets/img/current-user_profile-pic.png" alt="" />
+  </div>
+
+  <h1 class="welcome-header">{{ user.firstName + " " + user.lastName }}</h1>
+
+  <div class="info" [class.info_hidden]="isEditMode">
+    <div class="info-cell">First name:</div>
+    <div class="info-cell">{{ user.firstName }}</div>
+
+    <div class="info-cell">Last name:</div>
+    <div class="info-cell">{{ user.lastName }}</div>
+
+    <div class="info-cell">Email:</div>
+    <div class="info-cell">{{ user.email }}</div>
+
+    <div class="info-cell">Address</div>
+    <div class="info-cell">{{ user.address }}</div>
+  </div>
+</app-simple-card>
+
+<div class="floating-buttons" [class.floating-buttons-edit]="isEditMode">
+  <button
+    mat-flat-button
+    color="primary"
+    class="edit-button"
+    (click)="submit()"
+  >
+    <span *ngIf="!isEditMode">Edit profile</span>
+    <span *ngIf="isEditMode">Save changes</span>
+  </button>
+
+  <button
+    mat-button
+    color="primary"
+    class="cancel-button"
+    (click)="closeForm()"
+  >
+    <span>Cancel</span>
+  </button>
+</div>
+
+<app-simple-card class="edit-form" [class.edit-form_hidden]="!isEditMode">
+  <form #editF class="form" [formGroup]="editForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <label class="custom-label">First name</label>
+      <input
+        matNativeControl
+        formControlName="firstName"
+        placeholder="First name"
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <label class="custom-label">Last name</label>
+      <input
+        matNativeControl
+        formControlName="lastName"
+        placeholder="Last name"
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <label class="custom-label">Email</label>
+      <input matNativeControl formControlName="email" placeholder="Email" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <label class="custom-label">Adress</label>
+      <input matNativeControl formControlName="address" placeholder="Address" />
+    </mat-form-field>
+  </form>
+</app-simple-card>
+
+<app-modal-wrapper
+  [isHidden]="isPreviewHidden"
+  class="preview"
+  (click)="isPreviewHidden = true"
+>
+  <img
+    class="preview__img"
+    src="/assets/img/current-user_profile-pic_BIG.jpg"
+    alt=""
+  />
+</app-modal-wrapper>

@@ -1,5 +1,5 @@
 <div class="title">{{ title }}</div>
-<div class="user">
+<div class="user" [class.user-hidden]="title == 'Settings'">
   Jones Ferdinand
   <img
     class="user__ico"

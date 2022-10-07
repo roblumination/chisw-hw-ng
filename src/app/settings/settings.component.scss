@@ -1,0 +1,177 @@
+@import "mixins.scss";
+
+@include matInputCustomStyle();
+
+$prifile-picture-size: 150px;
+$prifile-picture-border: 5px;
+
+.preview {
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: hidden;
+
+  ::ng-deep & > * > * {
+    min-width: 90vw;
+    padding: 0px !important;
+    border-radius: 8px;
+  }
+
+  &__img {
+    // margin: -64px;
+    // margin-left: -32px;
+    // margin-right: -32px;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 7px;
+  }
+}
+
+.settings {
+  position: relative;
+  z-index: 100;
+  @include flexColCenter();
+  max-width: 500px;
+  margin: 0 auto;
+  margin-top: 100px;
+  // background-color: #f00;
+  transition: all 0.5s;
+
+  &_edited {
+    margin-top: -20px;
+    transition: all 0.3s;
+  }
+
+  .profile-picture {
+    width: $prifile-picture-size;
+    height: $prifile-picture-size;
+    background-color: $white;
+    border: 1px solid $grayscale-divider;
+    margin-top: -50px;
+    border-radius: 50%;
+    @include flexCenter();
+    @include likeButton();
+    box-shadow: $shadow-normal;
+    transition: all 0.1s;
+
+    img {
+      $size: $prifile-picture-size - $prifile-picture-border * 2;
+      display: block;
+      width: $size;
+      height: $size;
+      object-fit: cover;
+      border-radius: 50%;
+      transition: all 0.1s;
+      &:hover {
+        width: $size - 5px;
+        height: $size - 5px;
+      }
+    }
+  }
+
+  .welcome-header {
+    margin-top: 20px;
+  }
+
+  .info {
+    margin-top: 15px;
+    margin-bottom: 60px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    column-gap: 15px;
+    width: 100%;
+    transition: all 0.5s;
+    max-height: 140px;
+    overflow: hidden;
+
+    &_hidden {
+      max-height: 0px;
+      margin-bottom: 0px;
+
+      // width: 0px;
+      // opacity: 0.5;
+    }
+
+    & > * {
+      // font-size: 18px;
+      height: 30px;
+    }
+
+    & > *:nth-child(odd) {
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: $grayscale-gray;
+      text-align: right;
+      // max-width: 100px;
+    }
+
+    & > *:nth-child(even) {
+      // background-color: #f00;
+    }
+  }
+}
+
+.floating-buttons {
+  position: relative;
+  z-index: 200;
+  display: flex;
+  gap: 10px;
+  max-width: 500px;
+  padding: 0 25px;
+  padding-left: 75px;
+
+  margin: 0 auto;
+  transform: translateY(-50px);
+  transition: all 0.6s;
+
+  .cancel-button {
+    width: 50px;
+    min-width: 0px;
+    transition: all 0.3s;
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  &-edit {
+    padding-left: 25px;
+    transform: translateY(0px);
+    margin-top: 15px;
+    .cancel-button {
+      width: 100%;
+      pointer-events: all;
+      opacity: 1;
+    }
+  }
+
+  & > * {
+    display: block;
+    width: 100%;
+  }
+}
+
+.edit-form {
+  margin: 0 auto;
+  margin-top: -70px;
+  max-width: 500px;
+  height: 450px;
+  background: lighten($grayscale-bg, 1%);
+  transition: all 0.5s;
+  z-index: 1;
+  overflow: hidden;
+  padding-top: 80px;
+
+  // display: fle;
+  &_hidden {
+    height: 10px;
+    opacity: 0;
+    margin-top: 0px;
+  }
+
+  .form {
+    margin-top: 20px;
+    @include flexColCenter();
+    & > * {
+      width: 80%;
+    }
+  }
+}
