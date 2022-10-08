@@ -10,16 +10,11 @@
 
   @include flexColCenter(32px);
 
-  & * {
-    // border: 1px solid #f0f;
-  }
-
   & > * {
     @include flexColCenter(12px);
   }
 
   .logo {
-    // @include flexColCenter(12px);
     &__img {
       display: block;
     }
@@ -33,7 +28,6 @@
   }
 
   .content {
-    // @include flexColCenter(12px);
     &__header {
       font-weight: 700;
       font-size: 24px;

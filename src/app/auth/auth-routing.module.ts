@@ -12,7 +12,8 @@ import { AuthComponent } from './auth.component';
 const routes: Routes = [
   // { path: 'auth', redirectTo: '/auth/login', pathMatch: 'full' },
   {
-    path: 'auth',
+    path: '',
+    pathMatch: 'full',
     component: AuthComponent,
     children: [
       { path: 'login', component: LoginPageComponent },

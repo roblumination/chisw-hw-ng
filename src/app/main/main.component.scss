@@ -7,19 +7,15 @@
 
 .main {
   flex-grow: 1;
-  // min-width: calc(100vh - 255px);
   min-height: 100vh;
   background-color: $grayscale-bg;
   padding: 30px;
-  // transition: all 0.5s;
   display: flex;
   flex-direction: column;
 
   .header {
-    // position: sticky;
     top: 15px;
     margin-bottom: 54px;
-    // background-color: rgba($grayscale-bg, 0.5);
   }
 }
 

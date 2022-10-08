@@ -28,6 +28,7 @@ import {
   MatPaginatorModule,
 } from '@angular/material/paginator';
 import { PaginatorConfig } from '../shared/PaginatorConfig';
+import { TicketsRoutingModule } from './tickets-routing.module';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { PaginatorConfig } from '../shared/PaginatorConfig';
     MatSelectModule,
     ReactiveFormsModule,
     MatPaginatorModule,
+    TicketsRoutingModule,
   ],
   providers: [
     MatDatepickerModule,

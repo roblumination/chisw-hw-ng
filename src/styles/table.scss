@@ -3,9 +3,7 @@
 @include matPaginatorCustomStyle();
 
 .data-table {
-  // max-height: 100%;
   width: 100%;
-  // overflow-x: auto;
   min-width: 700px;
 }
 
@@ -43,7 +41,6 @@
 .table-ceil-text {
   font-size: 12px;
   color: $grayscale-gray-light;
-  // margin-top: 5px;
 }
 
 .mat-column-ticketDetails {
@@ -84,12 +81,10 @@
   color: $grayscale-gray;
   font-weight: 700;
   letter-spacing: 0.2px;
-  // margin-right: 5px;
 
   &:first-child {
     padding-left: 31px;
   }
-  // background-color: #f05;
 }
 
 .mat-row {
@@ -104,6 +99,5 @@
   position: sticky;
   bottom: 0px;
   border-radius: 8px;
-  // background-color: #f00;
   background: linear-gradient(#f0f0 0%, #fff 20% 100%);
 }

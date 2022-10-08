@@ -1,7 +1,5 @@
 @import "colors.scss";
 @import "mixins.scss";
-// @import "./table.scss";
-// @import "./menu.scss";
 @include matInputCustomStyle();
 @include matDatePickerCustomStyle();
 
@@ -12,7 +10,6 @@
   display: flex;
   align-items: center;
   padding: 24px 16px;
-  // padding-top: 25px;
   padding-bottom: 20px;
   margin-bottom: 10px;
   gap: 0px;
@@ -24,9 +21,7 @@
   button {
     font-size: 14px;
     font-weight: 600;
-    // display: flex;
     color: $grayscale-dark;
-    // gap: 12px;
 
     .button-ico {
       width: 16px;

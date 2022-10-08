@@ -27,7 +27,6 @@
   &:active {
     background-color: lighten($accent, 15%);
     transform: translateY(1px);
-    // background-color: darken($accent, 5%);
   }
 
   &:disabled {

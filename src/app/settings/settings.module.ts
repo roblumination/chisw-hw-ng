@@ -9,6 +9,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SettingsRoutingModule } from './settings-routing.module';
 
 @NgModule({
   declarations: [SettingsComponent],
@@ -21,6 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatRippleModule,
     MatFormFieldModule,
     MatInputModule,
+    SettingsRoutingModule,
   ],
   exports: [SettingsComponent],
 })

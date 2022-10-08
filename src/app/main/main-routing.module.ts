@@ -1,36 +1,35 @@
 import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
-import { ContactsComponent } from '../contacts/contacts.component';
-import { OverviewComponent } from '../overview/overview.component';
-import { SettingsComponent } from '../settings/settings.component';
-import { TicketsComponent } from '../tickets/tickets.component';
 import { MainComponent } from './main.component';
 
 const routes: Routes = [
   {
-    path: 'main',
+    path: '',
     component: MainComponent,
     children: [
       {
         path: 'overview',
         title: 'Overview',
-        component: OverviewComponent,
+        loadChildren: () =>
+          import('../overview/overview.module').then((m) => m.OverviewModule),
       },
       {
         path: 'tickets',
         title: 'Tickets',
-        component: TicketsComponent,
+        loadChildren: () =>
+          import('../tickets/tickets.module').then((m) => m.TicketsModule),
       },
       {
         path: 'contacts',
         title: 'Contacts',
-        component: ContactsComponent,
+        loadChildren: () =>
+          import('../contacts/contacts.module').then((m) => m.ContactsModule),
       },
       {
         path: 'settings',
         title: 'Settings',
-        component: SettingsComponent,
+        loadChildren: () =>
+          import('../settings/settings.module').then((m) => m.SettingsModule),
       },
     ],
   },

@@ -21,7 +21,6 @@
 
     &__failed {
       border: 1px solid #f00;
-      // background-color: #f00;
     }
 
     &::placeholder {
@@ -30,7 +29,6 @@
     }
 
     &:focus {
-      // outline: 1px solid $accent;
       outline: none;
     }
   }
@@ -57,7 +55,6 @@
     &:active {
       background-color: #0002;
     }
-    // background-color: #000;
   }
 
   &__error {

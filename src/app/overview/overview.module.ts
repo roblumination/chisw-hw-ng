@@ -10,6 +10,7 @@ import { UnresolvedListComponent } from './components/unresolved-list/unresolved
 import { MatRippleModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { TasksMiniComponent } from './components/tasks-mini/tasks-mini.component';
+import { OverviewRoutingModule } from './overview-routing.module';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { TasksMiniComponent } from './components/tasks-mini/tasks-mini.component
     }),
     MatRippleModule,
     MatButtonModule,
+    OverviewRoutingModule,
   ],
   exports: [OverviewComponent],
 })

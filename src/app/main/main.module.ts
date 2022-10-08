@@ -5,24 +5,11 @@ import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
 import { MainNavigationPanelComponent } from './components/main-navigation-panel/main-navigation-panel.component';
 import { SharedModule } from '../shared/shared.module';
-import { OverviewModule } from '../overview/overview.module';
-import { TicketsModule } from '../tickets/tickets.module';
-import { SettingsModule } from '../settings/settings.module';
 
 import { MatRippleModule } from '@angular/material/core';
-import { ContactsModule } from '../contacts/contacts.module';
 
 @NgModule({
   declarations: [MainComponent, MainNavigationPanelComponent],
-  imports: [
-    CommonModule,
-    MainRoutingModule,
-    SharedModule,
-    OverviewModule,
-    TicketsModule,
-    ContactsModule,
-    SettingsModule,
-    MatRippleModule,
-  ],
+  imports: [CommonModule, MainRoutingModule, SharedModule, MatRippleModule],
 })
 export class MainModule {}
