@@ -10,12 +10,13 @@ import { ForgotPasswordPageComponent } from './pages/forgot-password-page/forgot
 import { AuthComponent } from './auth.component';
 
 const routes: Routes = [
-  // { path: 'auth', redirectTo: '/auth/login', pathMatch: 'full' },
+  { path: 'auth', redirectTo: '/auth/login', pathMatch: 'full' },
   {
     path: '',
-    pathMatch: 'full',
+    // pathMatch: 'full',
     component: AuthComponent,
     children: [
+      { path: '', pathMatch: 'full', redirectTo: '/auth/login' },
       { path: 'login', component: LoginPageComponent },
       { path: 'reset', component: RestorePasswordPageComponent },
       { path: 'signup', component: SignUpPageComponent },

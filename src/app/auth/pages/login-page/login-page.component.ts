@@ -18,7 +18,7 @@ export class LoginPageComponent {
   });
 
   constructor(private router: Router, private authService: AuthService) {
-    if (this.authService.isLoggedIn) this.redirectToMainPage();
+    // if (this.authService.isLoggedIn) this.redirectToMainPage();
   }
 
   get email() {
