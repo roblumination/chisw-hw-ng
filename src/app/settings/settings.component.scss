@@ -6,19 +6,21 @@ $prifile-picture-size: 150px;
 $prifile-picture-border: 5px;
 
 .preview {
-  max-width: 90vw;
+  // max-width: 90vw;
   max-height: 90vh;
   overflow: hidden;
 
   ::ng-deep & > * > * {
     min-width: 90vw;
+    display: flex;
+    justify-content: center;
+    background-color: #0000 !important;
     padding: 0px !important;
-    border-radius: 8px;
   }
 
   &__img {
     display: block;
-    width: 100%;
+    width: auto;
     height: 100%;
     border-radius: 7px;
   }
