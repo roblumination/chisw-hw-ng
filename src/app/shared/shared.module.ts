@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { DaysAgoPipe } from './pipes/days-ago.pipe';
 import { ModalWrapperComponent } from './components/modal-wrapper/modal-wrapper.component';
 import { MatRippleModule } from '@angular/material/core';
+import { CardLoaderComponent } from './components/card-loader/card-loader.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { MatRippleModule } from '@angular/material/core';
     ScrollArrowComponent,
     DaysAgoPipe,
     ModalWrapperComponent,
+    CardLoaderComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, MatIconModule, MatRippleModule],
   exports: [
@@ -36,6 +38,7 @@ import { MatRippleModule } from '@angular/material/core';
     ScrollArrowComponent,
     DaysAgoPipe,
     ModalWrapperComponent,
+    CardLoaderComponent,
   ],
 })
 export class SharedModule {}

@@ -1,4 +1,7 @@
 <app-simple-card class="tickets">
+  <app-card-loader
+    [isHidden]="(contactsStatus$ | async) !== 'loading'"
+  ></app-card-loader>
   <!-- --- SORT, FILTER & ADD BUTTONS --- -->
   <app-contact-table-widgets
     (requestSetSortBy)="setSortBy($event)"
@@ -109,3 +112,5 @@
     [contactId]="contactId"
   ></app-add-contact-form>
 </app-modal-wrapper>
+
+<!-- [isHidden]="(contactsStatus$ | async) !== 'loading'" -->

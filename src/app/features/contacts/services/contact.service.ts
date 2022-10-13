@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, delay, Observable, Subject } from 'rxjs';
 import Contact from '../../../core/models/contact.interface';
 import ContactGenerator from './ContactGenerator';
 
@@ -18,7 +18,7 @@ export class ContactService {
 
   getAll(): Observable<Contact[]> {
     this.sendChangesToContactList();
-    return this.contacts$.asObservable();
+    return this.simulateLoading(this.contacts$);
   }
 
   getById(id: number): Observable<Contact> {
@@ -77,5 +77,9 @@ export class ContactService {
 
   private getIdForNewContact() {
     return this.contacts.length;
+  }
+
+  private simulateLoading(data$: Observable<any>) {
+    return data$.pipe(delay(1000));
   }
 }
