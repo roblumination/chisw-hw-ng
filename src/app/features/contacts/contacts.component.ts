@@ -5,7 +5,7 @@ import { Observable, Subscription } from 'rxjs';
 import { AddContactFormComponent } from './components/add-contact-form/add-contact-form.component';
 // import { AddTicketFormComponent } from './components/add-ticket-form/add-contact-form.component';
 import Contact from '../../core/models/contact.interface';
-import { ContactService } from './services/contact.service';
+import { ContactService } from '../../core/services/contact.service';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/core/state/app.state';
 import contactsActions from 'src/app/core/state/contacts/contacts.actions';

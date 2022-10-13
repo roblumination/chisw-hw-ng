@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, delay, Observable, Subject } from 'rxjs';
-import Contact from '../../../core/models/contact.interface';
+import Contact from '../models/contact.interface';
 import ContactGenerator from './ContactGenerator';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ContactService {
-  private contacts: Contact[] = [];
+  private contacts: Array<Contact> = [];
   private contacts$ = new BehaviorSubject<Contact[]>(this.contacts);
   private contact$ = new Subject<Contact>();
   private generator = new ContactGenerator();
@@ -45,13 +45,23 @@ export class ContactService {
     this.sendChangesToContactList();
   }
 
-  add(ticket: Contact) {
-    console.log('ADD IN SERVICE!');
+  add(contact: Contact) {
+    // console.log('ADD IN SERVICE!');
+    // console.log('INPUT:', contact);
     this.contacts.push({
-      ...ticket,
+      ...contact,
       id: this.getIdForNewContact(),
     });
+
+    // --- --- TODO delete --- ---
     this.sendChangesToContactList();
+    // --- --- TODO delete --- ---
+
+    // --- --- ASYNC --- ---
+    // const result = new Subject<void>();
+    // setTimeout(() => result.complete(), 1000);
+
+    // return result.asObservable();
   }
 
   sortBy(key: keyof Contact) {

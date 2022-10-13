@@ -32,5 +32,15 @@ export const contactsReducer = createReducer(
   on(contactsActions.addContactSuccess, (state) => ({
     ...state,
     status: 'success',
+  })),
+
+  // --- --- EDIT CONTACT --- ---
+  on(contactsActions.editContact, (state) => ({
+    ...state,
+    status: 'loading',
+  })),
+  on(contactsActions.editContactSuccess, (state) => ({
+    ...state,
+    status: 'success',
   }))
 );

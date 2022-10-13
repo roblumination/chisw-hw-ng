@@ -1,9 +1,8 @@
-import Contact from '../../../core/models/contact.interface';
-// import { randomIssues } from './randomIssues';
+import Contact from '../models/contact.interface';
 import { randomNames } from './randomNames';
 
 export default class ContactGenerator {
-  private readonly USER_AMOUNT = 100;
+  private readonly USER_AMOUNT = 3;
 
   private contacts: Array<Contact> = [];
 

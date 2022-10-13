@@ -5,9 +5,12 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { AppState } from 'src/app/core/state/app.state';
+import contactsActions from 'src/app/core/state/contacts/contacts.actions';
 import Contact from '../../../../core/models/contact.interface';
-import { ContactService } from '../../services/contact.service';
+import { ContactService } from '../../../../core/services/contact.service';
 
 type FormMode = 'add' | 'edit';
 
@@ -55,7 +58,10 @@ export class AddContactFormComponent {
   @Input() contactId: number = -1;
   @Output() requestCloseWindow = new EventEmitter<void>();
 
-  constructor(private contactService: ContactService) {
+  constructor(
+    // private store: Store<AppState>,
+    private contactService: ContactService
+  ) {
     this.contactSubscription = contactService.getById(0).subscribe(() => {});
   }
 
@@ -116,5 +122,7 @@ export class AddContactFormComponent {
     //
 
     this.contactService.add(this.currentContact);
+    // const newContact = { ...this.currentContact };
+    // this.store.dispatch(contactsActions.addContact({ contact: newContact }));
   }
 }
