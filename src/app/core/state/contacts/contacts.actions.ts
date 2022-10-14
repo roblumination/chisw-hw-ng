@@ -1,32 +1,5 @@
-import {
-  createAction,
-  createActionGroup,
-  emptyProps,
-  props,
-} from '@ngrx/store';
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import Contact from '../../models/contact.interface';
-
-// export const contactsActions = {
-//   load: createAction(page + 'Load All Contacts'),
-//   loadSuccess: createAction(
-//     page + 'Load All Contacts Success',
-//     props<{ contacts: Array<Contact> }>()
-//   ),
-//   loadFailure: createAction(
-//     page + 'Load All Contacts Failure',
-//     props<{ error: string }>()
-//   ),
-//   add: createAction(
-//     '[Contacts Page] Add Contact',
-//     props<{ contact: Contact }>()
-//   ),
-//   edit: createAction(page + 'Edit Contact', props<{ contact: Contact }>()),
-//   delete: createAction(page + 'Delete Contact', props<{ contactId: number }>()),
-//   setCurrentId: createAction(
-//     page + 'Set Current Contact Id',
-//     props<{ contactId: number }>()
-//   ),
-// };
 
 const contactsActions = createActionGroup({
   source: 'Contacts Page',
@@ -35,6 +8,10 @@ const contactsActions = createActionGroup({
     'Load Contacts': emptyProps(),
     'Load Contacts Failiture': props<{ error: string }>(),
     'Load Contacts Success': props<{ contacts: Array<Contact> }>(),
+
+    // 'Load Selected Contact': emptyProps(),
+    // 'Load Selected Contact Failiture': props<{ error: string }>(),
+    // 'Load Selected Contact Success': props<{ contact: Contact }>(),
 
     // --- --- OUTPUT --- ---
     'Add Contact': props<{ contact: Contact }>(),

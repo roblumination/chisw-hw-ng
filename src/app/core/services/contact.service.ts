@@ -1,6 +1,18 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, delay, Observable, Subject } from 'rxjs';
+import { Store } from '@ngrx/store';
+import {
+  BehaviorSubject,
+  delay,
+  first,
+  Observable,
+  Subject,
+  Subscription,
+} from 'rxjs';
+import CONTACT_BLANK from 'src/app/features/contacts/components/add-contact-form/contactBlank';
 import Contact from '../models/contact.interface';
+import { AppState } from '../state/app.state';
+import contactsActions from '../state/contacts/contacts.actions';
+import { contactsSelect } from '../state/contacts/contacts.selectors';
 import ContactGenerator from './ContactGenerator';
 
 @Injectable({
@@ -11,22 +23,45 @@ export class ContactService {
   private contacts$ = new BehaviorSubject<Contact[]>(this.contacts);
   private contact$ = new Subject<Contact>();
   private generator = new ContactGenerator();
+  selectedId = -1;
 
-  constructor() {
-    this.contacts = this.generator.getRandomContacts();
+  constructor(private store: Store<AppState>) {
+    this.store
+      .select(contactsSelect.currentId)
+      .subscribe((currentId) => (this.selectedId = currentId));
+    // const testContact = {
+    //   id: -1,
+    //   firstName: 'INIT',
+    //   lastName: 'INIT',
+    //   email: 'INIT@gnail.com',
+    //   address: 'Lviv, INIT',
+    //   createdAt: new Date(),
+    //   photoUrl: 'INIT',
+    // };
+    this.contacts.push(...this.generator.getRandomContacts());
   }
 
   getAll(): Observable<Contact[]> {
     this.sendChangesToContactList();
-    return this.simulateLoading(this.contacts$);
+    return this.simulateLoading(this.contacts$.pipe(first()));
+    // return this.contacts$;
   }
 
-  getById(id: number): Observable<Contact> {
-    setTimeout(() => {
-      this.contact$.next(this.contacts.filter((t) => t.id === id)[0]);
-    }, 0);
-    return this.contact$.asObservable();
-  }
+  // getCurrent(): Observable<Contact> {
+  //   this.contact$.next(
+  //     this.selectedId === -1
+  //       ? CONTACT_BLANK
+  //       : this.contacts.filter((t) => t.id === this.selectedId)[0]
+  //   );
+  //   return this.contact$.asObservable();
+  // }
+
+  // getById(id: number): Observable<Contact> {
+  //   setTimeout(() => {
+  //     this.contact$.next(this.contacts.filter((t) => t.id === id)[0]);
+  //   }, 0);
+  //   return this.contact$.asObservable();
+  // }
 
   delete(id: number) {
     this.contacts = this.contacts.filter((ticket) => ticket.id !== id);
@@ -46,22 +81,23 @@ export class ContactService {
   }
 
   add(contact: Contact) {
-    // console.log('ADD IN SERVICE!');
-    // console.log('INPUT:', contact);
-    this.contacts.push({
-      ...contact,
-      id: this.getIdForNewContact(),
-    });
+    this.contacts = [
+      ...this.contacts,
+      {
+        ...contact,
+        id: this.getIdForNewContact(),
+      },
+    ];
 
     // --- --- TODO delete --- ---
-    this.sendChangesToContactList();
+    // this.sendChangesToContactList();
     // --- --- TODO delete --- ---
 
     // --- --- ASYNC --- ---
-    // const result = new Subject<void>();
-    // setTimeout(() => result.complete(), 1000);
+    const result = new Subject<void>();
+    setTimeout(() => result.next(), 1000);
 
-    // return result.asObservable();
+    return result.asObservable();
   }
 
   sortBy(key: keyof Contact) {
@@ -75,10 +111,6 @@ export class ContactService {
     this.sendChangesToContactList();
   }
 
-  getRandomProfilePic() {
-    return this.generator.getRandomProfileImgUrl();
-  }
-
   // --- --- PRIVATE --- ---
 
   private sendChangesToContactList() {
@@ -87,6 +119,7 @@ export class ContactService {
 
   private getIdForNewContact() {
     return this.contacts.length;
+    // return ~~(Math.random() * 1000);
   }
 
   private simulateLoading(data$: Observable<any>) {

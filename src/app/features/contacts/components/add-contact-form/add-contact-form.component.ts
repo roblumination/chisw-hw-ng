@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -6,21 +6,28 @@ import {
   Validators,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+import { combineLatestWith, map, Subscription } from 'rxjs';
+import { FormMode } from 'src/app/core/models/common.types';
 import { AppState } from 'src/app/core/state/app.state';
 import contactsActions from 'src/app/core/state/contacts/contacts.actions';
+import { contactsSelect } from 'src/app/core/state/contacts/contacts.selectors';
+import { getRandomProfileImgUrl } from 'src/app/core/utils';
 import Contact from '../../../../core/models/contact.interface';
 import { ContactService } from '../../../../core/services/contact.service';
-
-type FormMode = 'add' | 'edit';
+import CONTACT_BLANK from './contactBlank';
 
 @Component({
   selector: 'app-add-contact-form',
   templateUrl: './add-contact-form.component.html',
   styleUrls: ['./add-contact-form.component.scss'],
 })
-export class AddContactFormComponent {
-  contactSubscription: Subscription;
+export class AddContactFormComponent implements OnDestroy {
+  // contactSubscription: Subscription;
+  subscriptions: Array<Subscription> = [];
+  currentContact: Contact = CONTACT_BLANK;
+  selectedContactId: number = -1;
+  @Output() requestCloseWindow = new EventEmitter<void>();
+
   contactForm = new FormGroup({
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
@@ -28,19 +35,8 @@ export class AddContactFormComponent {
     address: new FormControl('', Validators.required),
   });
 
-  readonly CONTACT_BLANK: Contact = {
-    id: -1,
-    firstName: 'INIT',
-    lastName: 'INIT',
-    email: 'INIT@gnail.com',
-    address: 'Lviv, INIT',
-    createdAt: new Date(),
-    photoUrl: 'INIT',
-  };
-  currentContact: Contact = this.CONTACT_BLANK;
-
   get mode(): FormMode {
-    return this.contactId >= 0 ? 'edit' : 'add';
+    return this.selectedContactId >= 0 ? 'edit' : 'add';
   }
   get firstName() {
     return this.contactForm.get('firstName') as AbstractControl;
@@ -55,37 +51,45 @@ export class AddContactFormComponent {
     return this.contactForm.get('address') as AbstractControl;
   }
 
-  @Input() contactId: number = -1;
-  @Output() requestCloseWindow = new EventEmitter<void>();
-
   constructor(
-    // private store: Store<AppState>,
-    private contactService: ContactService
+    private store: Store<AppState> // private contactService: ContactService
   ) {
-    this.contactSubscription = contactService.getById(0).subscribe(() => {});
-  }
+    const [selectedId$, contacts$] = [
+      this.store.select(contactsSelect.currentId),
+      this.store.select(contactsSelect.all),
+    ];
 
-  updateView() {
-    this.contactForm.reset();
-    if (this.mode === 'add') {
-      this.currentContact = this.CONTACT_BLANK;
-    } else {
-      this.contactSubscription.unsubscribe();
-      this.contactSubscription = this.contactService
-        .getById(this.contactId)
-        .subscribe((ticket) => {
-          this.currentContact = ticket;
+    this.subscriptions.push(
+      selectedId$
+        .pipe(
+          combineLatestWith(contacts$),
+          map(([selectedId, contacts]) => {
+            this.currentContact =
+              selectedId === -1
+                ? { ...CONTACT_BLANK, createdAt: new Date() }
+                : contacts.filter((contact) => contact.id === selectedId)[0];
+          })
+        )
+        .subscribe(() => {
           this.fillTicketForm();
-        });
-    }
+        })
+    );
   }
 
-  fillTicketForm() {
-    this.firstName.setValue(this.currentContact.firstName);
-    this.lastName.setValue(this.currentContact.lastName);
-    this.email.setValue(this.currentContact.email);
-    this.address.setValue(this.currentContact.address);
-  }
+  // updateView() {
+  //   this.contactForm.reset();
+  //   if (this.mode === 'add') {
+  //     this.currentContact = CONTACT_BLANK;
+  //   } else {
+  //     // this.contactSubscription.unsubscribe();
+  //     // this.contactSubscription = this.contactService
+  //     //   .getById(this.selectedContactId)
+  //     //   .subscribe((ticket) => {
+  //     //     this.currentContact = ticket;
+  //     //     this.fillTicketForm();
+  //     //   });
+  //   }
+  // }
 
   closeModal() {
     this.requestCloseWindow.emit();
@@ -101,28 +105,41 @@ export class AddContactFormComponent {
   }
 
   editTicket() {
-    const formOutput = this.contactForm.value;
-    this.currentContact.firstName = formOutput.firstName ?? '';
-    this.currentContact.lastName = formOutput.lastName ?? '';
-    this.currentContact.email = formOutput.email ?? '';
-    this.currentContact.address = formOutput.address ?? '';
+    // const formOutput = this.contactForm.value;
+    // this.currentContact.firstName = formOutput.firstName ?? '';
+    // this.currentContact.lastName = formOutput.lastName ?? '';
+    // this.currentContact.email = formOutput.email ?? '';
+    // this.currentContact.address = formOutput.address ?? '';
+    this.readValuesFromForm();
 
-    this.contactService.edit(this.currentContact);
+    // this.contactService.edit(this.currentContact);
   }
 
   addTicket() {
+    this.readValuesFromForm();
+    const newContact: Contact = {
+      ...this.currentContact,
+      photoUrl: getRandomProfileImgUrl(),
+    };
+    this.store.dispatch(contactsActions.addContact({ contact: newContact }));
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+
+  private readValuesFromForm() {
     const formOutput = this.contactForm.value;
     this.currentContact.firstName = formOutput.firstName ?? '';
     this.currentContact.lastName = formOutput.lastName ?? '';
     this.currentContact.email = formOutput.email ?? '';
     this.currentContact.address = formOutput.address ?? '';
+  }
 
-    // IDK HOW TO DO IT ANOTHER WAY
-    // this.currentContact.priority = formOutput.priority as TicketPriority;
-    //
-
-    this.contactService.add(this.currentContact);
-    // const newContact = { ...this.currentContact };
-    // this.store.dispatch(contactsActions.addContact({ contact: newContact }));
+  private fillTicketForm() {
+    this.firstName.setValue(this.currentContact.firstName);
+    this.lastName.setValue(this.currentContact.lastName);
+    this.email.setValue(this.currentContact.email);
+    this.address.setValue(this.currentContact.address);
   }
 }

@@ -25,15 +25,23 @@ export class ContactsEffects {
     )
   );
 
-  // addContact$ = createEffect(() => {
-  //   return this.actions$.pipe(
-  //     ofType(contactsActions.addContact),
-  //     mergeMap(({ contact }) =>
-  //       this.contactService.add(contact).pipe(
-  //         map(() => contactsActions.addContactSuccess()),
-  //         catchError(() => EMPTY)
-  //       )
-  //     )
-  //   );
-  // });
+  addContact$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(contactsActions.addContact),
+      mergeMap(({ contact }) =>
+        this.contactService.add(contact).pipe(
+          map(() => contactsActions.addContactSuccess()),
+          catchError(() => EMPTY)
+        )
+      )
+    );
+  });
+
+  addContactSuccess$ = createEffect(() => {
+    console.log('ADD SUCCEDD');
+    return this.actions$.pipe(
+      ofType(contactsActions.addContactSuccess),
+      map(() => contactsActions.loadContacts())
+    );
+  });
 }

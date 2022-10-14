@@ -1,4 +1,4 @@
-import { LoadingStatus } from '../models/LoadingStatus.type';
+import { LoadingStatus } from '../models/common.types';
 
 export default interface ItemsState<T> {
   items: Array<T>;

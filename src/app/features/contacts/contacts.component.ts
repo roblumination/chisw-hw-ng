@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/core/state/app.state';
 import contactsActions from 'src/app/core/state/contacts/contacts.actions';
 import { contactsSelect } from 'src/app/core/state/contacts/contacts.selectors';
-import { LoadingStatus } from 'src/app/core/models/LoadingStatus.type';
+import { LoadingStatus } from 'src/app/core/models/common.types';
 
 @Component({
   selector: 'app-contacts',
@@ -36,10 +36,10 @@ export class ContactsComponent implements OnDestroy, OnInit {
   isModalAddHidden = true;
 
   // to delete or edit
-  contactId = -1;
+  // contactId = -1;
 
-  @ViewChild(AddContactFormComponent)
-  private formComp!: AddContactFormComponent;
+  // @ViewChild(AddContactFormComponent)
+  // private formComp!: AddContactFormComponent;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
@@ -55,14 +55,6 @@ export class ContactsComponent implements OnDestroy, OnInit {
       });
     this.contactsStatus$ = this.store.select(contactsSelect.status);
     store.dispatch(contactsActions.loadContacts());
-    // this.contactsSubscription = this.contactService
-    //   .getAll()
-    //   .subscribe((response) => {
-    //     // console.log(response);
-    //     this.contactsDataSource = new MatTableDataSource(response);
-    //     this.contactsDataSource.paginator = this.paginator;
-    //     this.filter();
-    //   });
   }
 
   ngAfterViewInit() {
@@ -86,25 +78,30 @@ export class ContactsComponent implements OnDestroy, OnInit {
     // this.contactService.sortBy(sortBy);
   }
 
+  setSelectedContact(contactId: number) {
+    this.store.dispatch(contactsActions.setCurrentContactId({ contactId }));
+  }
+
   deleteContact() {
     this.isModalComfirmHidden = true;
     // this.contactService.delete(this.contactId);
   }
 
   editContact() {
-    this.formComp.updateView();
+    // this.formComp.updateView();
     this.isModalAddHidden = false;
   }
 
   addNewContact() {
-    this.contactId = -1;
-    this.formComp.contactId = -1;
-    this.formComp.updateView();
+    this.setSelectedContact(-1);
+    // this.contactId = -1;
+    // this.formComp.selectedContactId = -1;
+    // this.formComp.updateView();
 
     this.isModalAddHidden = false;
   }
 
   ngOnDestroy(): void {
-    this.contactsSubscription.unsubscribe();
+    // this.contactsSubscription.unsubscribe();
   }
 }

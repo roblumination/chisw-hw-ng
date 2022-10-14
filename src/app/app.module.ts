@@ -18,7 +18,15 @@ import { ContactsEffects } from './core/state/contacts/contacts.effects';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    StoreModule.forRoot({ contacts: contactsReducer }, {}),
+    StoreModule.forRoot(
+      { contacts: contactsReducer }
+      // {
+      //   runtimeChecks: {
+      //     strictStateImmutability: false,
+      //     strictActionImmutability: false,
+      //   },
+      // }
+    ),
     EffectsModule.forRoot([ContactsEffects]),
   ],
   providers: [],

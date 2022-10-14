@@ -57,7 +57,7 @@
         <button
           mat-icon-button
           [mat-menu-trigger-for]="itemMenu"
-          (click)="contactId = contact.id"
+          (click)="setSelectedContact(contact.id)"
         >
           <mat-icon class="dot-icon__wrapper">
             <div class="dot-icon"></div>
@@ -109,7 +109,6 @@
 <app-modal-wrapper class="modal-add" [isHidden]="isModalAddHidden">
   <app-add-contact-form
     (requestCloseWindow)="isModalAddHidden = true"
-    [contactId]="contactId"
   ></app-add-contact-form>
 </app-modal-wrapper>
 
