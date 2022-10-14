@@ -11,16 +11,19 @@ import { AppState } from 'src/app/core/state/app.state';
 import contactsActions from 'src/app/core/state/contacts/contacts.actions';
 import { contactsSelect } from 'src/app/core/state/contacts/contacts.selectors';
 import { LoadingStatus } from 'src/app/core/models/common.types';
+import CONTACT_BLANK from './components/add-contact-form/contactBlank';
 
 @Component({
   selector: 'app-contacts',
   templateUrl: './contacts.component.html',
   styleUrls: ['./contacts.component.scss'],
 })
-export class ContactsComponent implements OnDestroy, OnInit {
+export class ContactsComponent implements OnDestroy {
   contactsSubscription: Subscription;
   contactsStatus$: Observable<LoadingStatus>;
-  // contacts$;
+  contacts: Array<Contact> = [];
+
+  // --- --- TABLE --- ---
   contactsDataSource: MatTableDataSource<Contact> =
     new MatTableDataSource<Contact>([]);
   filterPhrase = '';
@@ -31,25 +34,35 @@ export class ContactsComponent implements OnDestroy, OnInit {
     'createdAt',
     'context',
   ];
+  // --- --- END TABLE --- ---
 
   isModalComfirmHidden = true;
   isModalAddHidden = true;
 
-  // to delete or edit
-  // contactId = -1;
+  selectedContactId = -1;
+  // selectedContact = CONTACT_BLANK;
 
-  // @ViewChild(AddContactFormComponent)
-  // private formComp!: AddContactFormComponent;
+  @ViewChild(AddContactFormComponent)
+  private formComp!: AddContactFormComponent;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  get selectedContact() {
+    return this.selectedContactId === -1
+      ? { ...CONTACT_BLANK, createdAt: new Date() }
+      : this.contacts.filter(
+          (contact) => contact.id === this.selectedContactId
+        )[0];
+  }
 
   constructor(
     private store: Store<AppState> /*private contactService: ContactService*/
   ) {
     this.contactsSubscription = this.store
       .select(contactsSelect.all)
-      .subscribe((response) => {
-        console.log(response);
-        this.contactsDataSource = new MatTableDataSource(response);
+      .subscribe((contactsFromDB) => {
+        // console.log(response);
+        this.contacts = contactsFromDB;
+        this.contactsDataSource = new MatTableDataSource(contactsFromDB);
         this.contactsDataSource.paginator = this.paginator;
         this.filter();
       });
@@ -59,10 +72,6 @@ export class ContactsComponent implements OnDestroy, OnInit {
 
   ngAfterViewInit() {
     this.contactsDataSource.paginator = this.paginator;
-  }
-
-  ngOnInit() {
-    console.log('HELLO!');
   }
 
   setFilterPhrase(phrase: string) {
@@ -79,11 +88,15 @@ export class ContactsComponent implements OnDestroy, OnInit {
   }
 
   setSelectedContact(contactId: number) {
-    this.store.dispatch(contactsActions.setCurrentContactId({ contactId }));
+    this.selectedContactId = contactId;
+    this.formComp.updateView(this.selectedContact);
   }
 
   deleteContact() {
     this.isModalComfirmHidden = true;
+    this.store.dispatch(
+      contactsActions.deleteContact({ contactId: this.selectedContactId })
+    );
     // this.contactService.delete(this.contactId);
   }
 
@@ -102,6 +115,6 @@ export class ContactsComponent implements OnDestroy, OnInit {
   }
 
   ngOnDestroy(): void {
-    // this.contactsSubscription.unsubscribe();
+    this.contactsSubscription.unsubscribe();
   }
 }

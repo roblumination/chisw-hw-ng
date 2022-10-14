@@ -27,6 +27,7 @@ const contactsActions = createActionGroup({
     'Delete Contact Failiture': props<{ error: string }>(),
 
     'Set Current Contact Id': props<{ contactId: number }>(),
+    'Set Sort By': props<{ sortBy: keyof Contact }>(),
   },
 });
 

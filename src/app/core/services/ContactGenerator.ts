@@ -7,7 +7,7 @@ import {
 import { randomNames } from './randomNames';
 
 export default class ContactGenerator {
-  private readonly USER_AMOUNT = 3;
+  private readonly USER_AMOUNT = 4;
 
   private contacts: Array<Contact> = [];
 
@@ -23,7 +23,7 @@ export default class ContactGenerator {
         id: i,
         firstName: randomName.split(' ')[0],
         lastName: randomName.split(' ')[1],
-        email: 'test@gmail.com',
+        email: randomName.split(' ').join('').toLowerCase() + '@gmail.com',
         address: 'Lviv',
         createdAt: getRandomDateInRange(new Date('2022/07/28'), new Date()),
         photoUrl: getRandomProfileImgUrl(),

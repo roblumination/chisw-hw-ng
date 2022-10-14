@@ -1,4 +1,10 @@
-import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  Output,
+} from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -25,7 +31,8 @@ export class AddContactFormComponent implements OnDestroy {
   // contactSubscription: Subscription;
   subscriptions: Array<Subscription> = [];
   currentContact: Contact = CONTACT_BLANK;
-  selectedContactId: number = -1;
+  // @Input() currentContact!: Contact;
+  // selectedContactId: number = -1;
   @Output() requestCloseWindow = new EventEmitter<void>();
 
   contactForm = new FormGroup({
@@ -36,7 +43,7 @@ export class AddContactFormComponent implements OnDestroy {
   });
 
   get mode(): FormMode {
-    return this.selectedContactId >= 0 ? 'edit' : 'add';
+    return this.currentContact.id >= 0 ? 'edit' : 'add';
   }
   get firstName() {
     return this.contactForm.get('firstName') as AbstractControl;
@@ -54,42 +61,32 @@ export class AddContactFormComponent implements OnDestroy {
   constructor(
     private store: Store<AppState> // private contactService: ContactService
   ) {
-    const [selectedId$, contacts$] = [
-      this.store.select(contactsSelect.currentId),
-      this.store.select(contactsSelect.all),
-    ];
-
-    this.subscriptions.push(
-      selectedId$
-        .pipe(
-          combineLatestWith(contacts$),
-          map(([selectedId, contacts]) => {
-            this.currentContact =
-              selectedId === -1
-                ? { ...CONTACT_BLANK, createdAt: new Date() }
-                : contacts.filter((contact) => contact.id === selectedId)[0];
-          })
-        )
-        .subscribe(() => {
-          this.fillTicketForm();
-        })
-    );
+    // const [selectedId$, contacts$] = [
+    //   this.store.select(contactsSelect.currentId),
+    //   this.store.select(contactsSelect.all),
+    // ];
+    // this.subscriptions.push(
+    //   selectedId$
+    //     .pipe(
+    //       combineLatestWith(contacts$),
+    //       map(([selectedId, contacts]) => {
+    //         this.currentContact =
+    //           selectedId === -1
+    //             ? { ...CONTACT_BLANK, createdAt: new Date() }
+    //             : contacts.filter((contact) => contact.id === selectedId)[0];
+    //       })
+    //     )
+    //     .subscribe(() => {
+    //       this.fillTicketForm();
+    //     })
+    // );
   }
 
-  // updateView() {
-  //   this.contactForm.reset();
-  //   if (this.mode === 'add') {
-  //     this.currentContact = CONTACT_BLANK;
-  //   } else {
-  //     // this.contactSubscription.unsubscribe();
-  //     // this.contactSubscription = this.contactService
-  //     //   .getById(this.selectedContactId)
-  //     //   .subscribe((ticket) => {
-  //     //     this.currentContact = ticket;
-  //     //     this.fillTicketForm();
-  //     //   });
-  //   }
-  // }
+  updateView(contact: Contact) {
+    this.currentContact = { ...contact };
+    this.contactForm.reset();
+    this.fillTicketForm();
+  }
 
   closeModal() {
     this.requestCloseWindow.emit();
@@ -105,14 +102,10 @@ export class AddContactFormComponent implements OnDestroy {
   }
 
   editTicket() {
-    // const formOutput = this.contactForm.value;
-    // this.currentContact.firstName = formOutput.firstName ?? '';
-    // this.currentContact.lastName = formOutput.lastName ?? '';
-    // this.currentContact.email = formOutput.email ?? '';
-    // this.currentContact.address = formOutput.address ?? '';
     this.readValuesFromForm();
-
-    // this.contactService.edit(this.currentContact);
+    this.store.dispatch(
+      contactsActions.editContact({ contact: this.currentContact })
+    );
   }
 
   addTicket() {

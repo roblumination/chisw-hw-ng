@@ -28,7 +28,13 @@ import { CardLoaderComponent } from './components/card-loader/card-loader.compon
     ModalWrapperComponent,
     CardLoaderComponent,
   ],
-  imports: [CommonModule, ReactiveFormsModule, MatIconModule, MatRippleModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatRippleModule,
+    MatIconModule,
+  ],
   exports: [
     ModalLoginWindowComponent,
     ReactiveFormsModule,

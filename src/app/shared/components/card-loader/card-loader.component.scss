@@ -5,49 +5,50 @@
   top: 0px;
   left: 0px;
   width: 100%;
-  height: 30px;
-  z-index: 600;
+  height: 100%;
+  z-index: 300;
+  pointer-events: none;
 }
 
-.wrapper {
-  position: relative;
-  width: 100%;
+.bg {
+  background-color: #fff6;
   height: 100%;
-  overflow: hidden;
-  border-radius: 7px 7px 0 0;
-  transition: all 0.1s;
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
 
-  perspective: 800px;
+  transition: all 0.2s;
+
+  .loading-text {
+    position: sticky;
+    top: 50vh;
+    text-align: center;
+    color: $grayscale-dark;
+    padding: 30px;
+    padding-top: 50px;
+
+    & > * {
+      animation: rotation 0.5s linear infinite;
+    }
+  }
 
   &_hidden {
     opacity: 0;
-    transition: all 1s;
+    backdrop-filter: blur(0px);
+    transition: all 0.2s, opacity 0.3s;
+
+    .loading-text {
+      & > * {
+        animation: none;
+      }
+    }
   }
 }
 
-.background {
-  height: 100%;
-  background: $grayscale-gray;
-  border-radius: 7px 7px 0 0;
-  color: white;
-  text-align: center;
-  font-size: 12px;
-  text-transform: uppercase;
-  font-weight: 700;
-}
-.lid {
-  position: absolute;
-  top: 0px;
-  height: 200%;
-  width: 100%;
-  background-color: #fff;
-  transform: translateY(14px);
-  transition: all 0.2s;
-  border-radius: 7px 7px 0 0;
-  // border-radius: 7px 7px 0 0;
-
-  &_closed {
-    transform: translateY(0px);
-    background-color: #fff;
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
   }
 }

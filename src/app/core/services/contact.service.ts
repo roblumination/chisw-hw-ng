@@ -3,7 +3,9 @@ import { Store } from '@ngrx/store';
 import {
   BehaviorSubject,
   delay,
+  EMPTY,
   first,
+  from,
   Observable,
   Subject,
   Subscription,
@@ -21,7 +23,7 @@ import ContactGenerator from './ContactGenerator';
 export class ContactService {
   private contacts: Array<Contact> = [];
   private contacts$ = new BehaviorSubject<Contact[]>(this.contacts);
-  private contact$ = new Subject<Contact>();
+  // private contact$ = new Subject<Contact>();
   private generator = new ContactGenerator();
   selectedId = -1;
 
@@ -43,6 +45,7 @@ export class ContactService {
 
   getAll(): Observable<Contact[]> {
     this.sendChangesToContactList();
+    // return this.simulateLoading(this.contacts$.asObservable());
     return this.simulateLoading(this.contacts$.pipe(first()));
     // return this.contacts$;
   }
@@ -65,19 +68,29 @@ export class ContactService {
 
   delete(id: number) {
     this.contacts = this.contacts.filter((ticket) => ticket.id !== id);
-    this.sendChangesToContactList();
+    return this.emitVoidObservable();
   }
+
+  // delete(id: number) {
+  //   return from(
+  //     new Promise<void>((resolve, reject) => {
+  //       this.contacts = this.contacts.filter((ticket) => ticket.id !== id);
+  //       resolve();
+  //     })
+  //   );
+  // }
 
   edit(contact: Contact) {
     const id = contact.id;
     const arrIndex = this.contacts.findIndex((t) => t.id === id);
     if (arrIndex === -1) {
       console.error(`Ticket with ID ${id} not found`);
-      return;
     }
-
-    this.contacts[arrIndex] = contact;
-    this.sendChangesToContactList();
+    this.contacts = [
+      ...this.contacts.filter((contact) => contact.id !== id),
+      contact,
+    ];
+    return this.emitVoidObservable();
   }
 
   add(contact: Contact) {
@@ -89,27 +102,19 @@ export class ContactService {
       },
     ];
 
-    // --- --- TODO delete --- ---
-    // this.sendChangesToContactList();
-    // --- --- TODO delete --- ---
-
-    // --- --- ASYNC --- ---
-    const result = new Subject<void>();
-    setTimeout(() => result.next(), 1000);
-
-    return result.asObservable();
+    return this.emitVoidObservable();
   }
 
-  sortBy(key: keyof Contact) {
-    this.contacts.sort((a, b) => {
-      // if (key == 'customerName' || key == 'ticketName') {
-      //   return a[key].localeCompare(b[key], 'en', { numeric: true });
-      // }
-      if (a[key] > b[key]) return 1;
-      return -1;
-    });
-    this.sendChangesToContactList();
-  }
+  // sortBy(key: keyof Contact) {
+  //   this.contacts.sort((a, b) => {
+  //     // if (key == 'customerName' || key == 'ticketName') {
+  //     //   return a[key].localeCompare(b[key], 'en', { numeric: true });
+  //     // }
+  //     if (a[key] > b[key]) return 1;
+  //     return -1;
+  //   });
+  //   this.sendChangesToContactList();
+  // }
 
   // --- --- PRIVATE --- ---
 
@@ -124,5 +129,11 @@ export class ContactService {
 
   private simulateLoading(data$: Observable<any>) {
     return data$.pipe(delay(1000));
+  }
+
+  private emitVoidObservable() {
+    const result = new Subject<void>();
+    setTimeout(() => result.next(), 0);
+    return result.asObservable();
   }
 }

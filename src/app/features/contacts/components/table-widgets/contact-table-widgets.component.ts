@@ -6,6 +6,9 @@ import {
   Output,
   ViewChildren,
 } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/core/state/app.state';
+import contactsActions from 'src/app/core/state/contacts/contacts.actions';
 import Contact from '../../../../core/models/contact.interface';
 
 @Component({
@@ -20,7 +23,7 @@ export class ContactTableWidgetsComponent implements OnInit {
   @Output() requestSetFilterPhrase = new EventEmitter<string>();
   @Output() requestAddNew = new EventEmitter<void>();
 
-  constructor() {}
+  constructor(private store: Store<AppState>) {}
 
   @ViewChildren('filterInput') filterInput!: ElementRef;
 
@@ -37,7 +40,8 @@ export class ContactTableWidgetsComponent implements OnInit {
   // }
 
   setSortBy(sortBy: keyof Contact) {
-    this.requestSetSortBy.emit(sortBy);
+    this.store.dispatch(contactsActions.setSortBy({ sortBy }));
+    // this.requestSetSortBy.emit(sortBy);
   }
 
   setFilterPhrase(phrase: string) {

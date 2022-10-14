@@ -17,6 +17,10 @@ export const contactsReducer = createReducer(
     ...state,
     selectedItemId: contactId,
   })),
+  on(contactsActions.setSortBy, (state, { sortBy }) => ({
+    ...state,
+    items: [...state.items].sort((a, b) => (a[sortBy] > b[sortBy] ? 1 : -1)),
+  })),
 
   // --- --- LOADING --- ---
   on(contactsActions.loadContacts, (state) => ({
@@ -37,15 +41,25 @@ export const contactsReducer = createReducer(
   on(contactsActions.addContactSuccess, (state) => ({
     ...state,
     status: 'success',
-  }))
+  })),
 
-  // // --- --- EDIT CONTACT --- ---
-  // on(contactsActions.editContact, (state) => ({
-  //   ...state,
-  //   status: 'loading',
-  // })),
-  // on(contactsActions.editContactSuccess, (state) => ({
-  //   ...state,
-  //   status: 'success',
-  // }))
+  // --- --- EDIT CONTACT --- ---
+  on(contactsActions.editContact, (state) => ({
+    ...state,
+    status: 'loading',
+  })),
+  on(contactsActions.editContactSuccess, (state) => ({
+    ...state,
+    status: 'success',
+  })),
+
+  // --- --- DELETE CONTACT --- ---
+  on(contactsActions.deleteContact, (state) => ({
+    ...state,
+    status: 'loading',
+  })),
+  on(contactsActions.deleteContactSuccess, (state) => ({
+    ...state,
+    status: 'success',
+  }))
 );

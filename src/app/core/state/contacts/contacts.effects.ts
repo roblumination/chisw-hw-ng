@@ -44,4 +44,44 @@ export class ContactsEffects {
       map(() => contactsActions.loadContacts())
     );
   });
+
+  deleteContact$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(contactsActions.deleteContact),
+      mergeMap(({ contactId }) =>
+        this.contactService.delete(contactId).pipe(
+          map(() => contactsActions.addContactSuccess()),
+          catchError(() => EMPTY)
+        )
+      )
+    );
+  });
+
+  deleteContactSuccess$ = createEffect(() => {
+    console.log('ADD SUCCEDD');
+    return this.actions$.pipe(
+      ofType(contactsActions.deleteContact),
+      map(() => contactsActions.loadContacts())
+    );
+  });
+
+  editContact$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(contactsActions.editContact),
+      mergeMap(({ contact }) =>
+        this.contactService.edit(contact).pipe(
+          map(() => contactsActions.addContactSuccess()),
+          catchError(() => EMPTY)
+        )
+      )
+    );
+  });
+
+  editContactSuccess$ = createEffect(() => {
+    console.log('ADD SUCCEDD');
+    return this.actions$.pipe(
+      ofType(contactsActions.editContactSuccess),
+      map(() => contactsActions.loadContacts())
+    );
+  });
 }
