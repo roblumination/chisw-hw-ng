@@ -10,6 +10,8 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { contactsReducer } from './core/state/contacts/contacts.reducer';
 import { ContactsEffects } from './core/state/contacts/contacts.effects';
+import { ticektsReducer } from './core/state/tickets/ticekts.reducer';
+import { TicketsEffects } from './core/state/tickets/tickets.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,7 +21,7 @@ import { ContactsEffects } from './core/state/contacts/contacts.effects';
     BrowserAnimationsModule,
     HttpClientModule,
     StoreModule.forRoot(
-      { contacts: contactsReducer }
+      { contacts: contactsReducer, tickets: ticektsReducer }
       // {
       //   runtimeChecks: {
       //     strictStateImmutability: false,
@@ -27,7 +29,7 @@ import { ContactsEffects } from './core/state/contacts/contacts.effects';
       //   },
       // }
     ),
-    EffectsModule.forRoot([ContactsEffects]),
+    EffectsModule.forRoot([ContactsEffects, TicketsEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent],

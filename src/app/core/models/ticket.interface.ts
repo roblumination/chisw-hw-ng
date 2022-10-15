@@ -1,4 +1,4 @@
-import { TicketPriority } from '../../features/tickets/models/priority.enum';
+import { TicketPriority } from './priority.enum';
 
 export default interface Ticket {
   id: number;

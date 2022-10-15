@@ -1,10 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -12,14 +6,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { combineLatestWith, map, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { FormMode } from 'src/app/core/models/common.types';
 import { AppState } from 'src/app/core/state/app.state';
 import contactsActions from 'src/app/core/state/contacts/contacts.actions';
-import { contactsSelect } from 'src/app/core/state/contacts/contacts.selectors';
 import { getRandomProfileImgUrl } from 'src/app/core/utils';
 import Contact from '../../../../core/models/contact.interface';
-import { ContactService } from '../../../../core/services/contact.service';
 import CONTACT_BLANK from './contactBlank';
 
 @Component({
@@ -28,11 +20,8 @@ import CONTACT_BLANK from './contactBlank';
   styleUrls: ['./add-contact-form.component.scss'],
 })
 export class AddContactFormComponent implements OnDestroy {
-  // contactSubscription: Subscription;
   subscriptions: Array<Subscription> = [];
   currentContact: Contact = CONTACT_BLANK;
-  // @Input() currentContact!: Contact;
-  // selectedContactId: number = -1;
   @Output() requestCloseWindow = new EventEmitter<void>();
 
   contactForm = new FormGroup({
@@ -58,34 +47,12 @@ export class AddContactFormComponent implements OnDestroy {
     return this.contactForm.get('address') as AbstractControl;
   }
 
-  constructor(
-    private store: Store<AppState> // private contactService: ContactService
-  ) {
-    // const [selectedId$, contacts$] = [
-    //   this.store.select(contactsSelect.currentId),
-    //   this.store.select(contactsSelect.all),
-    // ];
-    // this.subscriptions.push(
-    //   selectedId$
-    //     .pipe(
-    //       combineLatestWith(contacts$),
-    //       map(([selectedId, contacts]) => {
-    //         this.currentContact =
-    //           selectedId === -1
-    //             ? { ...CONTACT_BLANK, createdAt: new Date() }
-    //             : contacts.filter((contact) => contact.id === selectedId)[0];
-    //       })
-    //     )
-    //     .subscribe(() => {
-    //       this.fillTicketForm();
-    //     })
-    // );
-  }
+  constructor(private store: Store<AppState>) {}
 
   updateView(contact: Contact) {
     this.currentContact = { ...contact };
     this.contactForm.reset();
-    this.fillTicketForm();
+    this.fillForm();
   }
 
   closeModal() {
@@ -129,7 +96,7 @@ export class AddContactFormComponent implements OnDestroy {
     this.currentContact.address = formOutput.address ?? '';
   }
 
-  private fillTicketForm() {
+  private fillForm() {
     this.firstName.setValue(this.currentContact.firstName);
     this.lastName.setValue(this.currentContact.lastName);
     this.email.setValue(this.currentContact.email);

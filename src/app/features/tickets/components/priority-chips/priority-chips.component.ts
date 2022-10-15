@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TicketPriority } from '../../models/priority.enum';
+import { TicketPriority } from '../../../../core/models/priority.enum';
 
 @Component({
   selector: 'app-priority-chips',

@@ -1,3 +1,5 @@
+import { delay, Observable } from 'rxjs';
+
 export function getRandomDateInRange(start: Date, end: Date) {
   return new Date(
     start.getTime() + Math.random() * (end.getTime() - start.getTime())
@@ -33,4 +35,11 @@ export function getRandomProfileImgUrl(
 ): string {
   const seed = getRandomInRange(0, 10000);
   return `https://avatars.dicebear.com/api/${faceStyle}/${seed}.svg`;
+}
+
+export function simulateLoading(
+  data$: Observable<any>,
+  delayTime: number = 1000
+) {
+  return data$.pipe(delay(delayTime));
 }

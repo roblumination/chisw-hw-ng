@@ -6,6 +6,9 @@ import {
   Output,
   ViewChildren,
 } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/core/state/app.state';
+import ticketActions from 'src/app/core/state/tickets/tickets.actions';
 import Ticket from '../../../../core/models/ticket.interface';
 
 @Component({
@@ -20,7 +23,7 @@ export class TableWidgetsComponent implements OnInit {
   @Output() requestSetFilterPhrase = new EventEmitter<string>();
   @Output() requestAddNew = new EventEmitter<void>();
 
-  constructor() {}
+  constructor(private store: Store<AppState>) {}
 
   @ViewChildren('filterInput') filterInput!: ElementRef;
 
@@ -28,16 +31,10 @@ export class TableWidgetsComponent implements OnInit {
 
   closeFilterInput() {
     this.isInputShown = false;
-    // this.filterInput.nativeElement.value = '';
   }
 
-  // clearFilterInput() {
-  //   this.filterInput.nativeElement.value = '';
-  //   this.setFilterPhrase('');
-  // }
-
   setSortBy(sortBy: keyof Ticket) {
-    this.requestSetSortBy.emit(sortBy);
+    this.store.dispatch(ticketActions.setSortBy({ sortBy: sortBy }));
   }
 
   setFilterPhrase(phrase: string) {

@@ -1,7 +1,10 @@
+{{ ticketStatus$ | async }}
 <app-simple-card class="tickets">
+  <app-card-loader
+    [isHidden]="(ticketStatus$ | async) !== 'loading'"
+  ></app-card-loader>
   <!-- --- SORT, FILTER & ADD BUTTONS --- -->
   <app-table-widgets
-    (requestSetSortBy)="setSortBy($event)"
     (requestSetFilterPhrase)="setFilterPhrase($event)"
     (requestAddNew)="addNewTicket()"
   ></app-table-widgets>
@@ -69,7 +72,7 @@
         <button
           mat-icon-button
           [mat-menu-trigger-for]="itemMenu"
-          (click)="ticketId = ticket.id"
+          (click)="setSelectedTicket(ticket.id)"
         >
           <mat-icon class="dot-icon__wrapper">
             <div class="dot-icon"></div>
@@ -121,6 +124,5 @@
 <app-modal-wrapper class="modal-add" [isHidden]="isModalAddHidden">
   <app-add-ticket-form
     (requestCloseWindow)="isModalAddHidden = true"
-    [ticketId]="ticketId"
   ></app-add-ticket-form>
 </app-modal-wrapper>

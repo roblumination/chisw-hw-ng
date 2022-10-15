@@ -5,10 +5,13 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { TicketPriority } from '../../models/priority.enum';
+import { AppState } from 'src/app/core/state/app.state';
+import ticketActions from 'src/app/core/state/tickets/tickets.actions';
+import { TicketPriority } from '../../../../core/models/priority.enum';
 import Ticket from '../../../../core/models/ticket.interface';
-import { TicketService } from '../../services/ticket.service';
+import { TICKET_BLANK } from './ticketBlank';
 
 type FormMode = 'add' | 'edit';
 
@@ -18,7 +21,7 @@ type FormMode = 'add' | 'edit';
   styleUrls: ['./add-ticket-form.component.scss'],
 })
 export class AddTicketFormComponent {
-  ticketSubscription: Subscription;
+  // ticketSubscription: Subscription;
   ticketPriority = [
     TicketPriority.Hight,
     TicketPriority.Normal,
@@ -31,20 +34,12 @@ export class AddTicketFormComponent {
     priority: new FormControl('', Validators.required),
   });
 
-  readonly TICKET_BLANK: Ticket = {
-    id: -1,
-    customerLastLogin: new Date(),
-    customerName: 'INIT',
-    lastUpdated: new Date(),
-    creationDate: new Date(),
-    photoUrl: 'INIT',
-    ticketName: 'INIT',
-    priority: TicketPriority.Hight,
-  };
-  currentTicket = this.TICKET_BLANK;
+  currentTicket = TICKET_BLANK;
+
+  @Output() requestCloseWindow = new EventEmitter<void>();
 
   get mode(): FormMode {
-    return this.ticketId >= 0 ? 'edit' : 'add';
+    return this.currentTicket.id >= 0 ? 'edit' : 'add';
   }
   get details() {
     return this.ticketForm.get('details') as AbstractControl;
@@ -59,38 +54,14 @@ export class AddTicketFormComponent {
     return this.ticketForm.get('priority') as AbstractControl;
   }
 
-  @Input() ticketId: number = -1;
-  @Output() requestCloseWindow = new EventEmitter<void>();
-
-  constructor(private ticketService: TicketService) {
-    this.ticketSubscription = ticketService.getById(0).subscribe(() => {});
+  constructor(private store: Store<AppState>) {
+    // this.ticketSubscription = ticketService.getById(0).subscribe(() => {});
   }
 
-  updateView() {
+  updateView(ticket: Ticket) {
+    this.currentTicket = { ...ticket };
     this.ticketForm.reset();
-    if (this.mode === 'add') {
-      this.currentTicket = this.TICKET_BLANK;
-    } else {
-      this.ticketSubscription.unsubscribe();
-      this.ticketSubscription = this.ticketService
-        .getById(this.ticketId)
-        .subscribe((ticket) => {
-          this.currentTicket = ticket;
-          this.fillTicketForm();
-        });
-    }
-  }
-
-  fillTicketForm() {
-    this.details.setValue(this.currentTicket.ticketName);
-    this.customerName.setValue(this.currentTicket.customerName);
-    if (this.mode === 'edit') {
-      this.date.setValue(this.currentTicket.creationDate);
-      this.priority.setValue(this.currentTicket.priority);
-    } else {
-      this.priority.setValue('');
-      this.date.setValue('');
-    }
+    this.fillForm();
   }
 
   closeModal() {
@@ -101,30 +72,39 @@ export class AddTicketFormComponent {
     if (this.ticketForm.valid) {
       this.mode === 'add' ? this.addTicket() : this.editTicket();
       this.closeModal();
+    } else {
+      alert('Please, fill all fields!');
     }
   }
 
   editTicket() {
-    const formOutput = this.ticketForm.value;
-    this.currentTicket.customerName = formOutput.customerName!;
-    this.currentTicket.ticketName = formOutput.details!;
-    this.currentTicket.creationDate = new Date(formOutput.date!);
-    this.currentTicket.priority = formOutput.priority as TicketPriority;
-    this.currentTicket.lastUpdated = new Date();
+    this.readValuesFromForm();
+    this.store.dispatch(
+      ticketActions.editTicket({ ticket: this.currentTicket })
+    );
   }
 
   addTicket() {
-    console.log('ADD!');
+    this.readValuesFromForm();
+    this.store.dispatch(
+      ticketActions.addTicket({ ticket: this.currentTicket })
+    );
+  }
+
+  private fillForm() {
+    this.details.setValue(this.currentTicket.ticketName);
+    this.customerName.setValue(this.currentTicket.customerName);
+    if (this.mode === 'edit') {
+      this.date.setValue(this.currentTicket.creationDate);
+      this.priority.setValue(this.currentTicket.priority);
+    }
+  }
+
+  private readValuesFromForm() {
     const formOutput = this.ticketForm.value;
-    this.currentTicket.customerName = formOutput.customerName!;
-    this.currentTicket.ticketName = formOutput.details!;
-    this.currentTicket.photoUrl = this.ticketService.getRandomProfilePic();
-    this.currentTicket.creationDate = new Date(formOutput.date!);
-
-    // IDK HOW TO DO IT ANOTHER WAY
+    this.currentTicket.ticketName = formOutput.details ?? '';
+    this.currentTicket.creationDate = new Date(formOutput.date ?? Date.now());
+    this.currentTicket.customerName = formOutput.customerName ?? '';
     this.currentTicket.priority = formOutput.priority as TicketPriority;
-    //
-
-    this.ticketService.add(this.currentTicket);
   }
 }

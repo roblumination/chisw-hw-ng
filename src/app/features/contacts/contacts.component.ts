@@ -1,11 +1,9 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, Subscription } from 'rxjs';
 import { AddContactFormComponent } from './components/add-contact-form/add-contact-form.component';
-// import { AddTicketFormComponent } from './components/add-ticket-form/add-contact-form.component';
 import Contact from '../../core/models/contact.interface';
-import { ContactService } from '../../core/services/contact.service';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/core/state/app.state';
 import contactsActions from 'src/app/core/state/contacts/contacts.actions';
@@ -40,7 +38,6 @@ export class ContactsComponent implements OnDestroy {
   isModalAddHidden = true;
 
   selectedContactId = -1;
-  // selectedContact = CONTACT_BLANK;
 
   @ViewChild(AddContactFormComponent)
   private formComp!: AddContactFormComponent;
@@ -54,13 +51,10 @@ export class ContactsComponent implements OnDestroy {
         )[0];
   }
 
-  constructor(
-    private store: Store<AppState> /*private contactService: ContactService*/
-  ) {
+  constructor(private store: Store<AppState>) {
     this.contactsSubscription = this.store
       .select(contactsSelect.all)
       .subscribe((contactsFromDB) => {
-        // console.log(response);
         this.contacts = contactsFromDB;
         this.contactsDataSource = new MatTableDataSource(contactsFromDB);
         this.contactsDataSource.paginator = this.paginator;
@@ -83,10 +77,6 @@ export class ContactsComponent implements OnDestroy {
     this.contactsDataSource.filter = this.filterPhrase;
   }
 
-  setSortBy(sortBy: keyof Contact) {
-    // this.contactService.sortBy(sortBy);
-  }
-
   setSelectedContact(contactId: number) {
     this.selectedContactId = contactId;
     this.formComp.updateView(this.selectedContact);
@@ -97,19 +87,14 @@ export class ContactsComponent implements OnDestroy {
     this.store.dispatch(
       contactsActions.deleteContact({ contactId: this.selectedContactId })
     );
-    // this.contactService.delete(this.contactId);
   }
 
   editContact() {
-    // this.formComp.updateView();
     this.isModalAddHidden = false;
   }
 
   addNewContact() {
     this.setSelectedContact(-1);
-    // this.contactId = -1;
-    // this.formComp.selectedContactId = -1;
-    // this.formComp.updateView();
 
     this.isModalAddHidden = false;
   }

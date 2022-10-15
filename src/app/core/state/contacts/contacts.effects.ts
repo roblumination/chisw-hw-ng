@@ -38,7 +38,6 @@ export class ContactsEffects {
   });
 
   addContactSuccess$ = createEffect(() => {
-    console.log('ADD SUCCEDD');
     return this.actions$.pipe(
       ofType(contactsActions.addContactSuccess),
       map(() => contactsActions.loadContacts())
@@ -58,7 +57,6 @@ export class ContactsEffects {
   });
 
   deleteContactSuccess$ = createEffect(() => {
-    console.log('ADD SUCCEDD');
     return this.actions$.pipe(
       ofType(contactsActions.deleteContact),
       map(() => contactsActions.loadContacts())
@@ -78,7 +76,6 @@ export class ContactsEffects {
   });
 
   editContactSuccess$ = createEffect(() => {
-    console.log('ADD SUCCEDD');
     return this.actions$.pipe(
       ofType(contactsActions.editContactSuccess),
       map(() => contactsActions.loadContacts())
