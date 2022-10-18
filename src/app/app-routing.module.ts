@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './shared/pages/not-found/not-found.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/auth', pathMatch: 'full' },
+  { path: '', redirectTo: '/auth/signup', pathMatch: 'full' },
   {
     path: 'auth',
     loadChildren: () =>
