@@ -1,7 +1,116 @@
 @import "colors.scss";
 @import "mixins.scss";
 
+@include matInputCustomStyle();
+@include matDatePickerCustomStyle();
+
 .register-form {
   @include flexColCenter(24px);
   width: 100%;
+}
+
+.stepper {
+  width: 100%;
+
+  ::ng-deep .mat-vertical-content {
+    padding: 0px !important;
+    padding-top: 12px !important;
+  }
+}
+
+.stepper-button {
+  width: 100%;
+  @include matButtonCustomStyle();
+  width: 100%;
+  margin-bottom: -10px;
+  margin-top: -20px;
+}
+
+.calendar-ico {
+  display: inline-block;
+  background-color: $grayscale-ico;
+  width: 20px;
+  height: 20px;
+  mask-image: url("/assets/img/ico_calender.svg");
+
+  &:active {
+    background-color: $accent;
+  }
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.mat-form-field-label-only {
+  margin: 0px;
+  position: absolute;
+  left: 0px;
+  top: 170px;
+
+  .custom-label {
+    top: 0px !important;
+    left: 0px !important;
+  }
+}
+
+.array-wrapper {
+  & ::ng-deep .mat-form-field {
+    margin-bottom: 5px;
+    margin-top: 5px;
+  }
+}
+
+.array {
+  margin-top: 10px;
+}
+
+.add-field-button {
+  width: 100%;
+  @include flexCenter();
+  color: $grayscale-dark;
+
+  button {
+    border-radius: 8px;
+  }
+}
+
+.array-delete-button {
+  color: $grayscale-gray2;
+}
+
+::ng-deep .mat-step-header {
+  border-radius: 8px !important;
+  padding: 12px 12px;
+  margin: 0 -12px !important;
+  pointer-events: none !important;
+
+  .mat-step-text-label {
+    color: $grayscale-dark !important;
+  }
+
+  .mat-step-icon {
+    background-color: $grayscale-gray !important;
+  }
+
+  .mat-step-icon-selected {
+    background-color: $accent !important;
+  }
+
+  .mat-step-icon-state-edit {
+    background-color: $light-blue !important;
+    color: $grayscale-dark !important;
+  }
+}
+
+::ng-deep .mat-vertical-content-container {
+  margin-left: 0px !important;
+
+  .mat-stepper-vertical-line {
+    border: 2px solid #f0f !important;
+  }
+}
+
+::ng-deep .mat-stepper-vertical-line::before {
+  border-left-width: 0px !important;
 }

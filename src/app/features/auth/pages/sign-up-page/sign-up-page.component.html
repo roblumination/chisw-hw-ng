@@ -1,119 +1,143 @@
 <app-login-modal-window header="Sign Up" content="Create a new account">
-  <form class="register-form" [formGroup]="signUpForm" (ngSubmit)="onSumbit()">
-    <div class="form-control">
-      <label class="form-control__label" for="login-email">Email</label>
-      <input
-        placeholder="Email address"
-        class="form-control__input"
-        [class.form-control__input__failed]="email?.touched && (email?.errors?.['email'] || email?.errors?.['required'])"
-        formControlName="email"
-        type="email"
-        id="login-email"
-      />
+  <mat-stepper #stepper orientation="vertical" [linear]="false" class="stepper">
+    <!-- --- STEP: ACCOUTN DATA --- -->
+    <mat-step editable="false">
+      <form [formGroup]="forms.accountData">
+        <ng-template matStepLabel>Account data</ng-template>
+        <mat-form-field>
+          <label class="custom-label">Email</label>
+          <input formControlName="email" matNativeControl placeholder="Email" />
+        </mat-form-field>
+        <mat-form-field>
+          <label class="custom-label">Password</label>
+          <input
+            formControlName="password1"
+            matNativeControl
+            type="password"
+            placeholder="Password"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <label class="custom-label">Confirm password</label>
+          <input
+            formControlName="password2"
+            matNativeControl
+            type="password"
+            placeholder="Password"
+          />
+        </mat-form-field>
+      </form>
+    </mat-step>
 
-      <div *ngIf="signUpForm.invalid" class="form-control__error">
-        <div *ngIf="email?.touched && email?.errors?.['email']">
-          Incorrect email.
+    <!-- --- STEP: BASIC INFO --- -->
+    <mat-step editable="false">
+      <form [formGroup]="forms.basicData">
+        <ng-template matStepLabel>Who are you?</ng-template>
+        <mat-form-field>
+          <label class="custom-label">First name</label>
+          <input
+            formControlName="firstName"
+            matNativeControl
+            placeholder="First name"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <label class="custom-label">Last name</label>
+          <input
+            formControlName="lastName"
+            matNativeControl
+            placeholder="Last name"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <label class="custom-label">Date of birth</label>
+          <input
+            matNativeControl
+            placeholder="Date"
+            formControlName="birthDate"
+            [matDatepicker]="picker"
+          />
+
+          <mat-datepicker></mat-datepicker>
+
+          <mat-datepicker-toggle matSuffix [for]="picker">
+            <mat-icon matDatepickerToggleIcon>
+              <div class="calendar-ico"></div>
+            </mat-icon>
+          </mat-datepicker-toggle>
+          <mat-datepicker #picker class="custom-datepicker"></mat-datepicker>
+        </mat-form-field>
+      </form>
+    </mat-step>
+
+    <!-- --- STEP: MORE INFO --- -->
+    <mat-step>
+      <form [formGroup]="forms.contactData">
+        <ng-template matStepLabel>Contacts</ng-template>
+
+        <!-- --- Address --- -->
+        <mat-form-field>
+          <label class="custom-label">Address</label>
+          <input
+            matNativeControl
+            formControlName="address"
+            placeholder="Address"
+          />
+        </mat-form-field>
+
+        <!-- --- Phone --- -->
+        <mat-form-field>
+          <label class="custom-label">Phone</label>
+          <input formControlName="phone" matNativeControl placeholder="Phone" />
+        </mat-form-field>
+
+        <!-- --- Relatives --- -->
+        <div class="mat-form-field mat-form-field-label-only">
+          <label class="custom-label">Relatives</label>
         </div>
-        <div *ngIf="email?.touched && email?.errors?.['required']">
-          Email required.
+
+        <div class="array">
+          <ng-container
+            *ngFor="let control of relatives.controls; index as i"
+            class="array-wrapper"
+            formArrayName="relatives"
+          >
+            <mat-form-field class="array-form-field">
+              <button
+                mat-icon-button
+                matSuffix
+                (click)="deleteFieldFromRelatives(i)"
+                class="array-delete-button"
+              >
+                <mat-icon>close</mat-icon>
+              </button>
+              <input
+                matNativeControl
+                [formControlName]="i"
+                [placeholder]="'Relative #' + (i + 1)"
+              />
+            </mat-form-field>
+          </ng-container>
         </div>
-      </div>
-    </div>
 
-    <div class="form-control">
-      <label class="form-control__label" for="register-firstname"
-        >First Name</label
-      >
-      <input
-        placeholder="First name"
-        class="form-control__input"
-        [class.form-control__input__failed]="firstName?.touched && firstName?.errors?.['required']"
-        formControlName="firstName"
-        type="email"
-        id="register-firstname"
-      />
-
-      <div *ngIf="signUpForm.invalid" class="form-control__error">
-        <div *ngIf="firstName?.touched && firstName?.errors?.['required']">
-          First name required.
+        <div class="add-field-button">
+          <button mat-button type="button" (click)="addNewFieldForRelatives()">
+            <mat-icon>add</mat-icon>
+            Add another one
+          </button>
         </div>
-      </div>
-    </div>
+      </form>
+    </mat-step>
+  </mat-stepper>
 
-    <div class="form-control">
-      <label class="form-control__label" for="register-firstname"
-        >Last Name</label
-      >
-      <input
-        placeholder="First name"
-        class="form-control__input"
-        [class.form-control__input__failed]="lastName?.touched && lastName?.errors?.['required']"
-        formControlName="lastName"
-        type="email"
-        id="register-firstname"
-      />
-
-      <div *ngIf="signUpForm.invalid" class="form-control__error">
-        <div *ngIf="lastName?.touched && lastName?.errors?.['required']">
-          First name required.
-        </div>
-      </div>
-    </div>
-
-    <div class="form-control">
-      <label class="form-control__label" for="form-control">Password</label>
-      <input
-        #passwordField1
-        placeholder="Password"
-        class="form-control__input"
-        [class.form-control__input__failed]="password1?.touched && password1?.errors?.['required']"
-        formControlName="password1"
-        type="password"
-        id="login-pass1"
-      />
-      <div *ngIf="signUpForm.invalid" class="form-control__error">
-        <div *ngIf="password1?.touched && password1?.errors?.['required']">
-          Password required.
-        </div>
-      </div>
-      <button
-        type="button"
-        (click)="togglePassmode()"
-        class="form-control__hide-button"
-      ></button>
-    </div>
-
-    <div class="form-control">
-      <label class="form-control__label" for="login-pass2">Password</label>
-      <input
-        #passwordField2
-        placeholder="Password"
-        class="form-control__input"
-        [class.form-control__input__failed]="password2?.touched && password2?.errors?.['required']"
-        formControlName="password2"
-        type="password"
-        id="login-pass2"
-      />
-      <div *ngIf="signUpForm.invalid" class="form-control__error">
-        <div *ngIf="password2?.touched && password2?.errors?.['required']">
-          Password required.
-        </div>
-      </div>
-      <button
-        type="button"
-        (click)="togglePassmode()"
-        class="form-control__hide-button"
-      ></button>
-    </div>
-
-    <app-regular-button [disabled]="!signUpForm.valid">
-      Register
-    </app-regular-button>
-  </form>
-
-  <!-- <div class="post-form">
-    <div>Don’t have an account? <a routerLink="/signup">Sign up</a></div>
-    <div>Forget Password? <a routerLink="/forgot">Restore</a></div>
-  </div> -->
+  <button
+    type="button"
+    class="stepper-button stepper-button-next"
+    mat-flat-button
+    color="primary"
+    (click)="nextStep()"
+  >
+    <span *ngIf="!isLastStep">Next</span>
+    <span *ngIf="isLastStep">Finish</span>
+  </button>
 </app-login-modal-window>
